@@ -19,6 +19,9 @@ package esercitazioni.a_variabili;
 /**
  *
  * @author Antonio
+ * 
+ * Programma che ricava e stampa le proprietà del sistema operativo su cui
+ * viene eseguito. Si fa uso della classe System.
  */
 public class InfoSistema {
     

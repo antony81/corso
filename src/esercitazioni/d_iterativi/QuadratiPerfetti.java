@@ -21,6 +21,10 @@ import java.util.Scanner;
 /**
  *
  * @author Antonio
+ * 
+ * Programma che usa la classe Scanner per leggere da input un numero su
+ * cui, sfruttando un ciclo 'for', calcola i quadrati a partire da zero fino
+ * al valore inserito dall'utente.
  */
 public class QuadratiPerfetti {
     

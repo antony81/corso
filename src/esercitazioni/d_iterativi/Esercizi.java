@@ -19,6 +19,9 @@ package esercitazioni.d_iterativi;
 /**
  *
  * @author Antonio
+ * 
+ * Programma che usa il costrutto iterativo 'do while' il quale accettando
+ * in input un numero ne conta le cifre.
  */
 public class Esercizi {
     

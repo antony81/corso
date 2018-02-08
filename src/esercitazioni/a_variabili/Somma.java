@@ -19,6 +19,8 @@ package esercitazioni.a_variabili;
 /**
  *
  * @author Antonio
+ * 
+ * Semplice test per testare una espressione aritmetica.
  */
 public class Somma {
     

@@ -22,6 +22,10 @@ import static java.lang.System.out;
 /**
  *
  * @author Antonio
+ * 
+ * Programma che fa uso di array bidimensionali. Il primo 'for' riempe
+ * l'array con valori random. Il secondo 'for' stampa i valori conotenuti
+ * nell'array.
  */
 public class TestMatrix {
     
@@ -33,13 +37,17 @@ public class TestMatrix {
         out.println("------------------------------");
         
         int matrix[][] = new int[4][3];
-        for(int i = 0; i < matrix.length; i++)
-            for(int j = 0; j < matrix[0].length; j++) {
+        int numeroRighe = matrix.length;
+        for(int i = 0; i < numeroRighe; i++) {
+            int numeroColonne = matrix[0].length;
+            for(int j = 0; j < numeroColonne; j++) {
                 matrix[i][j] = (int) (random()*90+1);
             }
+        }
         
-        for(int i = 0; i < matrix.length; i++) {
-            for(int j = 0; j < matrix[0].length; j++) {
+        for(int i = 0; i < numeroRighe; i++) {
+            int numeroColonne = matrix[0].length;
+            for(int j = 0; j < numeroColonne; j++) {
                 if(matrix[i][j] < 10)
                     out.print(" ");
                 out.print(matrix[i][j] + " ");

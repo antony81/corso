@@ -19,9 +19,20 @@ package esercitazioni.e_array;
 /**
  *
  * @author Antonio
+ * 
+ * Classe che contiene metodi statici.
+ * Il metodo 'trovaMassimo' accetta 
  */
 public class EserciziArray {
     
+    /**
+     * 
+     * @param arr
+     * @return la somma degli elementi presenti in arr
+     * 
+     * Metodo che calcola la somma degli elementi di un array passato come
+     * parametro.
+     */
     public static double sommaElementi(double[] arr) {
         double somma = 0;
         
@@ -31,6 +42,12 @@ public class EserciziArray {
         return somma;
     }
     
+    /**
+     * 
+     * @param arr
+     * @return il valore massimo tra tutti gli elementi dell'array passato
+     * come parametro.
+     */
     public static int trovaMassimo(int[] arr) {
         int max = 0;
         

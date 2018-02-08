@@ -21,6 +21,8 @@ import java.util.Scanner;
 /**
  *
  * @author Antonio
+ * 
+ * Programma dimostrativo per testare le espressioni booleane.
  */
 public class Orario {
 

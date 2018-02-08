@@ -19,6 +19,9 @@ package esercitazioni.b_tipi;
 /**
  *
  * @author Antonio
+ * 
+ * Programma per capire l'uso dei tipi primitivi in Java e sfruttarli per
+ * eseguire operazioni aritmetiche.
  */
 public class TriangoloIsoscele {
     
