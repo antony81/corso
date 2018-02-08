@@ -47,7 +47,7 @@ public class ContoEsteso extends ContoBancario {
      * accetta una stinga e un double).
      */
     public ContoEsteso(String numeroConto) {
-        this(numeroConto, 0.0d);
+        this(numeroConto, 0.0);
     }
     
     /**
@@ -59,7 +59,7 @@ public class ContoEsteso extends ContoBancario {
      * accetta una stinga, un double e un double).
      */
     public ContoEsteso(String numeroConto, double saldo) {
-        this(numeroConto, saldo, 1000d);
+        this(numeroConto, saldo, 1000.0);
     }
     
     /**
