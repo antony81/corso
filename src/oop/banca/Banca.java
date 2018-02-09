@@ -31,9 +31,9 @@ package oop.banca;
  */
 public class Banca {
     
-    private ContoBancario[] conti; // variabile d'insatnza
+    private ContoBancario[] conti; // variabile d'instanza
     
-    private int numConti, capacita; // variabili d'insatnza
+    private int numConti, capacita; // variabili d'instanza
     
     /**
      * Costruttore di default che richiama l'altro costruttore in overloading

@@ -37,8 +37,8 @@ public class ContoBancario implements Serializable {
     
     private static final long serialVersionUID = -2886419301638293782L;
     
-    protected String numeroConto; // variabile d'insatnza
-    protected double saldo; // variabile d'insatnza
+    protected String numeroConto; // variabile d'instanza
+    protected double saldo; // variabile d'instanza
     
     private static int contiAttivi = 0; // variabile statica (sarà condivisa tra tutti gli oggetti di tipo ContoBancario)
     

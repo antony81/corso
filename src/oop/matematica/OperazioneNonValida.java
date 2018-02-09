@@ -19,11 +19,18 @@ package oop.matematica;
 /**
  *
  * @author Antonio
+ * 
+ * Classe che estende 'Exception' per rappresentare una eccezione personalizzata
+ * (una 'Checked Exception'), la quale indica che un monomio non può essere
+ * sommato algebricamente ad un altro se gli esponenti non sono uguali.
  */
 public class OperazioneNonValida extends Exception {
 
     private static final long serialVersionUID = 1021720081686537629L;
 
+    /**
+     * Metodo costruttore di default
+     */
     public OperazioneNonValida() {
     }
     

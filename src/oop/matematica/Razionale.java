@@ -24,16 +24,23 @@ import oop.util.LoggerFactory;
 /**
  *
  * @author Antonio
+ * 
+ * Classe che rappresenta un razionale che abbia quindi un numeratore ed un
+ * denominatore. La classe ha dei metodi che permettono le operazioni di base
+ * sui razionali: somma, differenza, prodotto, divisione.
  */
 public class Razionale implements Comparable<Razionale> {
     
-    private int numeratore;
-    private int denominatore;
+    private int numeratore; // variabile d'instanza
+    private int denominatore; // variabile d'instanza
     
-    private static int count = 0;
+    private static int count = 0; // variabile statica utile a contare quanti razionali saranno creati
     
-    private final static Logger LOGGER = LoggerFactory.getLogger(Razionale.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(Razionale.class); // creazione di un logger
     
+    /**
+     * Metodo costruttore di default che inizializza a zero un razionale.
+     */
     public Razionale() {
         this.numeratore = 0;
         this.denominatore = 1;
@@ -41,11 +48,17 @@ public class Razionale implements Comparable<Razionale> {
         count++;
     }
     
+    /**
+     * 
+     * @param numeratore - il numeratore del razionale
+     * @param denominatore - il denominatore del razionale
+     * @throws DenominatoreNulloException - se il denominatore è uguale a zero
+     */
     public Razionale(int numeratore, int denominatore) throws DenominatoreNulloException {
         if(denominatore == 0)
             throw new DenominatoreNulloException();
         
-        int mcd = mcd(Math.abs(numeratore), Math.abs(denominatore));
+        int mcd = mcd(Math.abs(numeratore), Math.abs(denominatore)); // calcolo del massimo comun divisore usado un metodo ricorsivo
         
         this.numeratore = numeratore/mcd;
         this.denominatore = denominatore/mcd;
@@ -58,6 +71,9 @@ public class Razionale implements Comparable<Razionale> {
         count++;
     }
     
+    /* Metodo privato che usa la ricorsione per calcolare, sfruttando
+    l'algoritmo di Euclide, il massimo comun divisore.
+    */
     private int mcd(int num, int den) {
         if(den == 0)
             return num;
@@ -65,10 +81,22 @@ public class Razionale implements Comparable<Razionale> {
         return mcd(den, num%den);
     }
     
+    /**
+     * 
+     * @return - il numeratore del razionale
+     * 
+     * Metodo accessorio per leggere il numeratore di un razionale.
+     */
     public int getNumeratore() {
         return numeratore;
     }
 
+    /**
+     * 
+     * @param numeratore - il nuovo numeratore del razionale
+     * 
+     * Metodo mutatore che accetta come parametro il nuovo numeratore.
+     */
     public void setNumeratore(int numeratore) {
         int mcd = mcd(Math.abs(numeratore), Math.abs(this.denominatore));
         
@@ -76,10 +104,23 @@ public class Razionale implements Comparable<Razionale> {
         this.denominatore /= mcd;
     }
     
+    /**
+     * 
+     * @return - il nuovo denominatore del razionale
+     * 
+     * Metodo mutatore che accetta come parametro il nuovo denominatore.
+     */
     public int getDenominatore() {
         return denominatore;
     }
 
+    /**
+     * 
+     * @param denominatore - il nuovo denominatore del razionale
+     * @throws DenominatoreNulloException se il denominatore è uguale a zero
+     * 
+     * Metodo mutatore che accetta come parametro il nuovo denominatore.
+     */
     public void setDenominatore(int denominatore) throws DenominatoreNulloException {
         if(denominatore == 0)
             throw new DenominatoreNulloException();
@@ -95,65 +136,105 @@ public class Razionale implements Comparable<Razionale> {
         }
     }
     
+    /**
+     * 
+     * @param r - il razionale da sommare a 'this'
+     * @return il razionale somma
+     * 
+     * Metodo che permette di addizionare due razionali e ottenerne un terzo che
+     * rappresenta il risultato finale.
+     */
     public Razionale addizione(Razionale r) {
         int mcm = denominatore*r.denominatore;
         int num = numeratore*r.denominatore+r.numeratore*denominatore;
-        Razionale res = null;
         
+        Razionale res = null;
         try {
             res = new Razionale(num, mcm);
         } catch (DenominatoreNulloException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
         return res;
     }
     
+    /**
+     * 
+     * @param r - il razionale da sottrarre a 'this'
+     * @return il razionale che è la differenza tra i due
+     * 
+     * Metodo che permette di effettuare la sottrazione tra due razionali e
+     * ottenerne un terzo che appresenta il risultato finale.
+     */
     public Razionale sottrazione(Razionale r) {
         int mcm = denominatore*r.denominatore;
         int num = numeratore*r.denominatore-r.numeratore*denominatore;
-        Razionale res = null;
         
+        Razionale res = null;
         try {
             res = new Razionale(num, mcm);
         } catch (DenominatoreNulloException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
         return res;
     }
     
+    /**
+     * 
+     * @param r - il razionale da moltiplicare a 'this'
+     * @return il razionale che è il prodotto tra i due
+     * 
+     * Metodo che permette di moltiplicare due razionali e ottenerne un terzo
+     * che appresenta il risultato finale.
+     */
     public Razionale moltiplicazione(Razionale r) {
         int num = numeratore*r.numeratore;
         int den = denominatore*r.denominatore;
-        Razionale res = null;
         
+        Razionale res = null;
         try {
             res = new Razionale(num, den);
         } catch (DenominatoreNulloException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
         return res;
     }
     
+    /**
+     * 
+     * @param r - il razionale da dividere a 'this'
+     * @return il razionale che è la divisione tra i due
+     * 
+     * Metodo che permette di effettuare la divisione tra due razionali e
+     * ottenerne un terzo che appresenta il risultato finale.
+     * Il metodo lancia l'eccezione ArithmeticException ('Unchecked Exception')
+     * se il razionale passato come parametro vale zero.
+     */
     public Razionale divisione(Razionale r) {
         if(r.numeratore == 0)
             throw new ArithmeticException("Non posso dividere per zero");
         
         int num = numeratore*r.denominatore;
         int den = r.numeratore*denominatore;
-        Razionale res = null;
         
+        Razionale res = null;
         try {
             res = new Razionale(num, den);
         } catch (DenominatoreNulloException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
         return res;
     }
     
+    /* Override del metodo finalize per testare il 'Garbage Collector' di Java.
+    Il metodo decrementa la variabile 'count' se un oggetto instanziato
+    per questa classe non è più referenziato e quindi soggetto a essere rimosso
+    dalla memoria dal 'Garbage Collector', il quale chiama questo metodo prima
+    di pulire effettivamente la memoria.
+    */
     @Override
     protected void finalize() throws Throwable {
         try {
@@ -163,11 +244,27 @@ public class Razionale implements Comparable<Razionale> {
         }
     }
     
+    /**
+     * 
+     * @return il codice hash di un oggetto
+     * 
+     * Override del metodo per calcolare il codice hash di un oggetto di
+     * tipo 'Razionale'.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(numeratore, denominatore);
     }
     
+    /**
+     * 
+     * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
+     * @return true se gli oggetti sono uguali, false altrimenti
+     * 
+     * Implementazione del metodo 'equals' per permettere il confronto tra due
+     * oggetti di tipo 'Razionale'. Due oggetti di questo tipo saranno
+     * uguali se il numeratore ed il denominatore sono uguali.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -184,6 +281,13 @@ public class Razionale implements Comparable<Razionale> {
         return (numeratore == r.numeratore) && (denominatore == r.denominatore);
     }
     
+    /**
+     * 
+     * @return la stringa per rappresentare l'oggetto
+     * 
+     * Implementazione del metodo 'toString' che genera una stringa che
+     * rappresenterà l'oggetto.
+     */
     @Override
     public String toString() {
         if(numeratore == 0)
@@ -197,6 +301,16 @@ public class Razionale implements Comparable<Razionale> {
         return builder.toString();
     }
     
+    /**
+     * 
+     * @param r - il razionale da comparare
+     * @return un valore negativo se 'this' precede 'r', positivo se lo segue, il valore zero se sono uguali
+     * 
+     * Sovrascrittura del metodo presente nell'interfaccia 'Comparable' per
+     * comparare due razionali in base al loro valore. un razionale precede un
+     * altro se il suo valore è minore dell'altro. Se il valore è maggiore lo
+     * segue.
+     */
     @Override
     public int compareTo(Razionale r) {
         if(this == r)
@@ -212,6 +326,12 @@ public class Razionale implements Comparable<Razionale> {
         return n1-n2;
     }
     
+    /**
+     * 
+     * @return il numero degli oggetti di tipo razionale creati
+     * 
+     * Metodo statico che ritorna il numero complessivo dei razionali creati.
+     */
     public static int getCount() {
         return count;
     }

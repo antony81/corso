@@ -37,7 +37,7 @@ public class ContoEsteso extends ContoBancario {
     
     private static final long serialVersionUID = 9171240682087241598L;
     
-    private double fido; // variabile d'insatnza
+    private double fido; // variabile d'instanza
     
     /**
      * 
