@@ -33,15 +33,36 @@ import java.util.logging.Logger;
  */
 public final class RazionaleIO {
     
-    private final static Logger LOGGER = LoggerFactory.getLogger(Razionale.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(Razionale.class); // creazione di un logger
     
+    /**
+     * Costruttore di default privato che non consente la creazione di oggetti
+     * di tipo RazionaleIO. La classe avrà infatti soltanto metodi statici.
+     */
     private RazionaleIO() {
     }
     
+    /**
+     * 
+     * @param r - razionale da salvare
+     * @return true se il salvataggio va a buon fine, false altrimenti
+     * 
+     * Metodo statico che permette di salvare un oggetto di tipo razionale in
+     * un file in un percorso di default.
+     */
     public static boolean save(Razionale r) {
         return save(r, "./src/oop/saves/matematica/razionale.dat");
     }
     
+    /**
+     * 
+     * @param r - razionale da salvare
+     * @param pathName - il nome del file con il relativo percorso, da salvare
+     * @return true se il salvataggio va a buon fine, false altrimenti
+     * 
+     * Metodo statico che permette di salvare un oggetto di tipo razionale in
+     * un file con il percorso passato al metodo come stringa.
+     */
     public static boolean save(Razionale r, String pathName) {
         boolean res = true;
         
@@ -64,10 +85,29 @@ public final class RazionaleIO {
         return res;
     }
     
+    /**
+     * 
+     * @return il razionale caricato
+     * 
+     * Metodo statico che consente di caricare da un file salvato in precedenza
+     * in un percorso di default. Il metodo ritorna il razionale se tutto va
+     * bene, altrimenti ritorna null se il file non esiste o se cisono problemi
+     * di input-output.
+     */
     public static Razionale load() {
         return load("./src/oop/saves/matematica/razionale.dat");
     }
     
+    /**
+     * 
+     * @param pathName - il nome del file con il relativo percorso, da salvare
+     * @return il razionale caricato
+     * 
+     * Metodo statico che consente di caricare da un file salvato in precedenza
+     * in un percorso dato come parametro al metodo. Il metodo ritorna il
+     * razionale se tutto va bene, altrimenti ritorna null se il file non esiste
+     * o se cisono problemi di input-output.
+     */
     private static Razionale load(String pathName) {
         Razionale res;
         
