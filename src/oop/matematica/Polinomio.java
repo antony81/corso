@@ -23,15 +23,33 @@ import java.util.List;
 /**
  *
  * @author Antonio
+ * 
+ * Classe che rappresenta un polinomio composto al massimo da tre monomi, in
+ * modo che si possa avere un'espressione di grado non superiore al secondo.
+ * La classe fa uso di un ArrayList in cui inserire i monomi.
  */
 public class Polinomio {
     
-    private final List<Monomio> espressione;
+    private final List<Monomio> espressione; // variabile d'instanza
     
+    /**
+     * Costruttore di default che inizializza un polinomio. Il polinomio
+     * sarà composto da tre monomi di grado diverso usando il metodo aggiungi.
+     */
     public Polinomio() {
         espressione = new ArrayList<>(3);
     }
     
+    /**
+     * 
+     * @param monomio - il monomio da aggiungere al polinomio
+     * @throws EsponenteException se viene aggiunto un monomio che ha lo stesso esponente di un monomio già presente
+     * 
+     * Metodo che permette di aggiungere monomi ad un polinomio. Il metodo
+     * consente di inserire al massimo tre monomi di grado diverso.
+     * Se si dovesse passare un monomio con grado uguale ad uno già presente
+     * il metodo lancia una eccezione 'EsponenteException'.
+     */
     public void aggiungi(Monomio monomio) throws EsponenteException {
         if(espressione.size() > 3 || monomio.getEsponente() < 0 || monomio.getEsponente() > 2)
             throw new EsponenteException();
@@ -48,6 +66,13 @@ public class Polinomio {
         espressione.add(monomio);
     }
     
+    /**
+     * 
+     * @return una stringa con i valori delle radici dell'equazione
+     * 
+     * Metodo che risolve l'equazione di secondo grado supponendo di porre il
+     * polinomio uguale a zero.
+     */
     public String soluzione() {
         StringBuilder builder = new StringBuilder();
         
@@ -99,15 +124,35 @@ public class Polinomio {
         return builder.toString();
     }
     
+    /**
+     * Metodo che ordina il polinomio in base all'ordine dei monomi.
+     * In pratica dal monomio con esponente più grande verso quello più piccolo.
+     */
     public void ordina() {
         Collections.sort(espressione);
     }
     
+    /**
+     * 
+     * @return il codice hash di un oggetto
+     * 
+     * Override del metodo per calcolare il codice hash di un oggetto di
+     * tipo 'Polinomio'.
+     */
     @Override
     public int hashCode() {
         return espressione.hashCode();
     }
     
+    /**
+     * 
+     * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
+     * @return true se gli oggetti sono uguali, false altrimenti
+     * 
+     * Implementazione del metodo 'equals' per permettere il confronto tra due
+     * oggetti di tipo 'Polinomio'. Due oggetti di questo tipo saranno uguali
+     * se sono composti da monomi uguali.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -124,6 +169,13 @@ public class Polinomio {
         return espressione.containsAll(p.espressione);
     }
     
+    /**
+     * 
+     * @return la stringa per rappresentare l'oggetto
+     * 
+     * Implementazione del metodo 'toString' che genera una stringa che
+     * rappresenterà l'oggetto.
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

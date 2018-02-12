@@ -19,7 +19,19 @@ package oop.matematica;
 /**
  *
  * @author Antonio
+ * 
+ * Classe che estende 'Exception' per rappresentare una eccezione personalizzata
+ * (una 'Checked Exception'), la quale indica che un polinomio non può avere
+ * monomi con lo stesso grado.
  */
 public class EsponenteException extends Exception {
+
+    private static final long serialVersionUID = -4484567940687144099L;
+
+    /**
+     * Metodo costruttore di default
+     */
+    public EsponenteException() {
+    }
     
 }

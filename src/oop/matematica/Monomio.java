@@ -260,6 +260,12 @@ public class Monomio implements Comparable<Monomio> {
         return m.esponente-esponente;
     }
 
+    /**
+     * 
+     * @return il numero di monomi creati
+     * 
+     * Metodo statico che ritorna il numero complessivo dei monomi creati.
+     */
     public static int getCount() {
         return count;
     }
