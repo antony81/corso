@@ -167,7 +167,7 @@ public class ContoBancario implements Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(numeroConto);
+        return Objects.hash(numeroConto, saldo);
     }
     
     /**
