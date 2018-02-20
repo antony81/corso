@@ -61,10 +61,13 @@ public class Monomio implements Comparable<Monomio> {
      * @param denominatore - il denominatore del coefficiente del monomio
      * @param esponente - l'esponente del monomio
      * @throws DenominatoreNulloException - se il denominatore del coefficiente è uguale a zero
+     * 
+     * Costruttore che crea un monomio passando come parametri un numeratore e
+     * un denominatore che saranno usati per creare il razionale coefficiente e
+     * inoltre un esponente che rappresenterà appunto l'esponente del monomio.
      */
     public Monomio(int numeratore, int denominatore, int esponente) throws DenominatoreNulloException {
-        coefficiente = new Razionale(numeratore, denominatore);
-        this.esponente = esponente;
+        this(new Razionale(numeratore, denominatore), esponente);
     }
 
     /**
@@ -111,16 +114,16 @@ public class Monomio implements Comparable<Monomio> {
      * 
      * @param m - moonomio da sommare
      * @return un nuovo monomio che sarà la somma tra 'this' e 'm'
-     * @throws OperazioneNonValida se gli esponenti non sono uguali
+     * @throws OperazioneNonValidaException se gli esponenti non sono uguali
      * 
      * Metodo che permette di sommare due monomi se gli esponenti sono uguali
      * tra di loro.
      * Il metodo lancia l'eccezione OperazioneNonValida se gli esponenti non
      * sono uguali tra di loro.
      */
-    public Monomio somma(Monomio m) throws OperazioneNonValida {
+    public Monomio somma(Monomio m) throws OperazioneNonValidaException {
         if(esponente != m.esponente)
-            throw new OperazioneNonValida();
+            throw new OperazioneNonValidaException();
         
         Razionale somma = coefficiente.addizione(m.coefficiente);
         
@@ -130,16 +133,16 @@ public class Monomio implements Comparable<Monomio> {
      * 
      * @param m - moonomio da sottrarre
      * @return un nuovo monomio 'm' che sarà sottratto a 'this'
-     * @throws OperazioneNonValida se gli esponenti non sono uguali
+     * @throws OperazioneNonValidaException se gli esponenti non sono uguali
      * 
      * Metodo che permette di effettuare la sottrazione tra due monomi se gli
      * esponenti sono uguali tra di loro.
      * Il metodo lancia l'eccezione OperazioneNonValida se gli esponenti non
      * sono uguali tra di loro.
      */
-    public Monomio differenza(Monomio m) throws OperazioneNonValida {
+    public Monomio differenza(Monomio m) throws OperazioneNonValidaException {
         if(esponente != m.esponente)
-            throw new OperazioneNonValida();
+            throw new OperazioneNonValidaException();
         
         Razionale differenza = coefficiente.sottrazione(m.coefficiente);
         
