@@ -21,8 +21,6 @@ import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 
 /**
- *
- * @author Antonio
  * 
  * Classe che rappresenta un conto esteso il quale eredita il numero di
  * conto e il saldo e aggiunge il fido.
@@ -32,6 +30,8 @@ import java.util.Objects;
  * essere instanziati.
  * Questa classe eredita anche l'implementazione dell'interfaccia 'Serializable'
  * per consentire l'eventuale serializzazione e deserializzazione.
+ *
+ * @author Antonio
  */
 public class ContoEsteso extends ContoBancario {
     
@@ -41,10 +41,10 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @param numeroConto - il numero di conto
-     * 
      * Metodo costruttore che richiama col this l'altro costruttore (quello che
      * accetta una stinga e un double).
+     * 
+     * @param numeroConto - il numero di conto
      */
     public ContoEsteso(String numeroConto) {
         this(numeroConto, 0.0);
@@ -52,11 +52,11 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @param numeroConto - il numero di conto
-     * @param saldo - il saldo del conto
-     * 
      * Metodo costruttore che richiama col this l'altro costruttore (quello che
      * accetta una stinga, un double e un double).
+     * 
+     * @param numeroConto - il numero di conto
+     * @param saldo - il saldo del conto
      */
     public ContoEsteso(String numeroConto, double saldo) {
         this(numeroConto, saldo, 1000.0);
@@ -64,13 +64,13 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @param numeroConto - il numero di conto
-     * @param saldo - il saldo del conto
-     * @param fido - il fido del conto
-     * 
      * Metodo costruttore che richiama col super il costruttore della super
      * classe (quello che accetta una stinga e un double) e inizializza anche
      * il fido.
+     * 
+     * @param numeroConto - il numero di conto
+     * @param saldo - il saldo del conto
+     * @param fido - il fido del conto
      */
     public ContoEsteso(String numeroConto, double saldo, double fido) {
         super(numeroConto, saldo);
@@ -80,9 +80,9 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @return il fido del conto
-     * 
      * Metodo accessorio che consente di leggere il fido.
+     * 
+     * @return il fido del conto
      */
     public double getFido() {
         return fido;
@@ -90,9 +90,9 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @param fido - il fido del conto
+     * Metodo mutatore che permette di cambiare il fido del conto.
      * 
-     * Metodo mutatore che permette di cambiare il fido del conto
+     * @param fido - il fido del conto
      */
     public void setFido(double fido) {
         this.fido = fido;
@@ -100,15 +100,15 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @param ammontare - la quantità di denaro da prelevare sul conto corrente
-     * @return true se è possibile prelvare, false altrimenti
-     * 
      * Riscrittura del metodo preleva della super classe. La riscrittura di
      * questo metodo è necessaria perché bisogna tener conto ache del fido per
      * poter prelevare e, quindi, il metodo accetta come parametro una somma da
      * prelevare. Se tale somma non supera il saldo disponibile sommato al fido,
      * il metodo aggiorna il saldo e ritorna 'true' per segnalare che il
      * prelievo è avvenuto con succcesso; ritorna false in caso contrario.
+     * 
+     * @param ammontare - la quantità di denaro da prelevare sul conto corrente
+     * @return true se è possibile prelvare, false altrimenti
      */
     @Override
     public boolean preleva(double ammontare) {
@@ -122,10 +122,10 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @return il codice hash di un oggetto
-     * 
      * Override del metodo per calcolare il codice hash di un oggetto di
      * tipo 'ContoEsteso'.
+     * 
+     * @return il codice hash di un oggetto
      */
     @Override
     public int hashCode() {
@@ -134,12 +134,12 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
-     * @return true se gli oggetti sono uguali, false altrimenti
-     * 
      * Implementazione del metodo 'equals' per permettere il confronto tra due
      * oggetti di tipo 'ContoEsteso'. Due oggetti di questo tipo saranno
      * uguali se il saldo e il fido sono uguali.
+     * 
+     * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
+     * @return true se gli oggetti sono uguali, false altrimenti
      */
     @Override
     public boolean equals(Object obj) {
@@ -158,13 +158,13 @@ public class ContoEsteso extends ContoBancario {
     
     /**
      * 
-     * @return la stringa per rappresentare l'oggetto
-     * 
      * Implementazione del metodo 'toString' che genera una stringa che
      * rappresenterà l'oggetto. Per il saldo ed il fido la stringa sarà
      * formattata in modo tale che abbia la parte decimale composta da sole due
      * cifre decimali.
      * La classe DecimalFormat è utile per questo scopo.
+     * 
+     * @return la stringa per rappresentare l'oggetto
      */
     @Override
     public String toString() {

@@ -22,7 +22,8 @@ import java.util.Scanner;
  *
  * @author Antonio
  * 
- * Programma dimostrativo per testare le espressioni booleane.
+ * Programma dimostrativo per testare le espressioni booleane e il costrutto
+ * decisionale dell'if-else.
  */
 public class Orario {
 

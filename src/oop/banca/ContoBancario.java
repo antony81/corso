@@ -22,8 +22,6 @@ import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 
 /**
- *
- * @author Antonio
  * 
  * Classe che rappresenta un conto bancario dato un numero di conto e un saldo.
  * La classe incapsula, infatti, la stringa 'numeroConto' e il double 'saldo'
@@ -32,6 +30,8 @@ import java.util.Objects;
  * ha il compito di contare il numero di oggetti che verranno creati.
  * La classe implementa l'interfaccia 'Serializable' per consentire l'eventuale
  * serializzazione e deserializzazione.
+ *
+ * @author Antonio
  */
 public class ContoBancario implements Serializable {
     
@@ -44,12 +44,12 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @param numeroConto - il numero di conto
-     * 
      * Metodo costruttore che inizializza la variabile d'istanza 'numeroConto'
      * con la stringa passata come parametro e la variabile d'istanza 'saldo'
      * a 0.0 come default. Da notare che il metodo richiama col 'this' l'altro
      * metodo costruttore.
+     * 
+     * @param numeroConto - il numero di conto
      */
     public ContoBancario(String numeroConto) {
         this(numeroConto, 0.0);
@@ -57,14 +57,14 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @param numeroConto - il numero di conto
-     * @param saldo - il saldo iniziale del conto
-     * 
      * Metodo costruttore pubblico che inizializza le variabili d'istanza
      * 'numeroConto' e 'saldo' con i valori contenuti nei parametri passati
      * al metodo. Inoltre viene incrementata la variabile statica 'contiAttivi'
      * che consente di tenere traccia del numero di conti che verranno
      * instanziati.
+     * 
+     * @param numeroConto - il numero di conto
+     * @param saldo - il saldo iniziale del conto
      */
     public ContoBancario(String numeroConto, double saldo) {
         this.numeroConto = numeroConto;
@@ -75,9 +75,9 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @return il numero di conto
-     * 
      * Metodo accessorio che consente di leggere il numero di conto.
+     * 
+     * @return il numero di conto
      */
     public String getNumeroConto() {
         return numeroConto;
@@ -85,9 +85,9 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @param numeroConto - il numero di conto
-     * 
      * Metodo mutatore che permette di cambiare il numero di conto
+     * 
+     * @param numeroConto - il numero di conto
      */
     public void setNumeroConto(String numeroConto) {
         this.numeroConto = numeroConto;
@@ -95,9 +95,9 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @return il saldo del conto corrente
-     * 
      * Metodo accessorio che consente di leggere il saldo del conto corrente.
+     * 
+     * @return il saldo del conto corrente
      */
     public double getSaldo() {
         return saldo;
@@ -105,9 +105,9 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @return il numero di conti creati
-     * 
      * Metodo statico che ritorna il numero dei conti creati.
+     * 
+     * @return il numero di conti creati
      */
     public static int contiAttivi() {
         return contiAttivi;
@@ -115,24 +115,31 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @param ammontare - la quantità di denaro da depositare sul conto corrente
-     * 
      * Il metodo accetta un come parametro la somma da depositare sul
-     * conto corrente.
+     * conto corrente. Se l'ammontare è negativo il metodo restituisce false,
+     * perché non è possibile depositare una somma negativa.
+     * 
+     * @param ammontare - la quantità di denaro da depositare sul conto corrente
+     * @return true se è stato possibile depositare, false altrimenti
      */
-    public void deposita(double ammontare) {
+    public boolean deposita(double ammontare) {
+        if(ammontare < 0)
+            return false;
+        
         saldo += ammontare;
+        
+        return true;
     }
     
     /**
-     * 
-     * @param ammontare - la quantità di denaro da prelevare sul conto corrente
-     * @return true se è possibile prelvare, false altrimenti
      * 
      * Metodo che accetta come parametro una somma da prelevare e, se tale somma
      * non supera il saldo disponibile, il metodo aggiorna il saldo e ritorna
      * 'true' per segnalare che il prelievo è avvenuto con succcesso. Il metodo
      * ritorna 'false' se la somma da prelevare supera quella del saldo.
+     * 
+     * @param ammontare - la quantità di denaro da prelevare sul conto corrente
+     * @return true se è possibile prelvare, false altrimenti
      */
     public boolean preleva(double ammontare) {
         if(ammontare > saldo)
@@ -160,10 +167,10 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @return il codice hash di un oggetto
-     * 
      * Override del metodo per calcolare il codice hash di un oggetto di
      * tipo 'ContoBancario'.
+     * 
+     * @return il codice hash di un oggetto
      */
     @Override
     public int hashCode() {
@@ -172,12 +179,12 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
-     * @return true se gli oggetti sono uguali, false altrimenti
-     * 
      * Implementazione del metodo 'equals' per permettere il confronto tra due
      * oggetti di tipo 'ContoBancario'. Due oggetti di questo tipo saranno
      * uguali se il saldo è uguale.
+     * 
+     * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
+     * @return true se gli oggetti sono uguali, false altrimenti
      */
     @Override
     public boolean equals(Object obj) {
@@ -194,12 +201,12 @@ public class ContoBancario implements Serializable {
     
     /**
      * 
-     * @return la stringa per rappresentare l'oggetto
-     * 
      * Implementazione del metodo 'toString' che genera una stringa che
      * rappresenterà l'oggetto. Per il saldo la stringa sarà formattata in modo
      * tale che abbia la parte decimale composta da sole due cifre decimali.
      * La classe DecimalFormat è utile per questo scopo.
+     * 
+     * @return la stringa per rappresentare l'oggetto
      */
     @Override
     public String toString() {

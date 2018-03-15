@@ -19,6 +19,8 @@ package oop.util;
 /**
  *
  * @author Antonio
+ * 
+ * Enum che contiene i nomi delle regioni italiane.
  */
 public enum Regione {
     
