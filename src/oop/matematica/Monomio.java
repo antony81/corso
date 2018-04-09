@@ -53,6 +53,8 @@ public class Monomio implements Comparable<Monomio> {
     public Monomio(Razionale coefficiente, int esponente) {
         this.coefficiente = coefficiente;
         this.esponente = esponente;
+        
+        count++;
     }
     
     /**

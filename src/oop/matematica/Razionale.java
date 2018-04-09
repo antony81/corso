@@ -148,14 +148,14 @@ public class Razionale implements Comparable<Razionale> {
         int mcm = denominatore*r.denominatore;
         int num = numeratore*r.denominatore+r.numeratore*denominatore;
         
-        Razionale res = null;
+        Razionale somma = null;
         try {
-            res = new Razionale(num, mcm);
+            somma = new Razionale(num, mcm);
         } catch (DenominatoreNulloException ex) {
             LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
-        return res;
+        return somma;
     }
     
     /**
@@ -170,14 +170,14 @@ public class Razionale implements Comparable<Razionale> {
         int mcm = denominatore*r.denominatore;
         int num = numeratore*r.denominatore-r.numeratore*denominatore;
         
-        Razionale res = null;
+        Razionale differenza = null;
         try {
-            res = new Razionale(num, mcm);
+            differenza = new Razionale(num, mcm);
         } catch (DenominatoreNulloException ex) {
             LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
-        return res;
+        return differenza;
     }
     
     /**
@@ -192,14 +192,14 @@ public class Razionale implements Comparable<Razionale> {
         int num = numeratore*r.numeratore;
         int den = denominatore*r.denominatore;
         
-        Razionale res = null;
+        Razionale prodotto = null;
         try {
-            res = new Razionale(num, den);
+            prodotto = new Razionale(num, den);
         } catch (DenominatoreNulloException ex) {
             LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
-        return res;
+        return prodotto;
     }
     
     /**
@@ -219,14 +219,14 @@ public class Razionale implements Comparable<Razionale> {
         int num = numeratore*r.denominatore;
         int den = r.numeratore*denominatore;
         
-        Razionale res = null;
+        Razionale quoziente = null;
         try {
-            res = new Razionale(num, den);
+            quoziente = new Razionale(num, den);
         } catch (DenominatoreNulloException ex) {
             LOGGER.log(Level.SEVERE, null, ex); // il catch non si verifica mai perché sicuramente il denominatore non sarà zero
         }
         
-        return res;
+        return quoziente;
     }
     
     /* Override del metodo finalize per testare il 'Garbage Collector' di Java.
