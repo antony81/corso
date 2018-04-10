@@ -24,13 +24,30 @@ package oop.lista;
 public class ListaConcatenata<E> {
     
     private class Nodo<T> {
-        T info;
-        Nodo<E> next;
+        private T info;
+        private Nodo<E> next;
         
         Nodo(T info, Nodo<E> next) {
             this.info = info;
             this.next = next;
         }
+
+        public T getInfo() {
+            return info;
+        }
+
+        public void setInfo(T info) {
+            this.info = info;
+        }
+
+        public Nodo<E> getNext() {
+            return next;
+        }
+
+        public void setNext(Nodo<E> next) {
+            this.next = next;
+        }
+        
     }
     
     private Nodo<E> inizio, fine;
@@ -40,12 +57,24 @@ public class ListaConcatenata<E> {
         clear();
     }
     
+    private void init(E element) {
+        Nodo<E> nuovo = new Nodo<>(element, null);
+        inizio = fine = nuovo;
+        size++;
+    }
+
+    private Nodo<E> findNodo(int index) {
+        Nodo<E> corrente = inizio;
+        for(int i = 0; i < index; i++)
+            corrente = corrente.next;
+        
+        return corrente;
+    }
+    
     public void add(E element) {
-        if(size == 0) {
-            Nodo<E> nuovo = new Nodo<>(element, null);
-            inizio = fine = nuovo;
-            size++;
-        } else
+        if(size == 0)
+            init(element);
+        else
             addLast(element);
     }
     
@@ -54,32 +83,22 @@ public class ListaConcatenata<E> {
             throw new IndiceFuoriRangeException();
         
         if(size == 0)
-            add(element);
+            init(element);
+        else if(index == 0)
+            addFirst(element);
+        else if(index == size)
+            addLast(element);
         else {
-            if(index == 0)
-                addFirst(element);
-            else if(index == size)
-                addLast(element);
-            else {
-                Nodo<E> cursore = findNodo(index-1);
-                Nodo<E> nuovo = new Nodo<>(element, cursore.next);
-                cursore.next = nuovo;
-                size++;
-            }
+            Nodo<E> corrente = findNodo(index-1);
+            Nodo<E> nuovo = new Nodo<>(element, corrente.next);
+            corrente.next = nuovo;
+            size++;
         }
-    }
-
-    private Nodo<E> findNodo(int index) {
-        Nodo<E> cursore = inizio;
-        for(int i = 0; i < index; i++)
-            cursore = cursore.next;
-        
-        return cursore;
     }
 
     public void addFirst(E element) {
         if(size == 0)
-            add(element);
+            init(element);
         else {
             Nodo<E> nuovo = new Nodo<>(element, inizio);
             inizio = nuovo;
@@ -89,7 +108,7 @@ public class ListaConcatenata<E> {
 
     public void addLast(E element) {
         if(size == 0)
-            add(element);
+            init(element);
         else {
             Nodo<E> nuovo = new Nodo<>(element, null);
             fine.next = nuovo;
@@ -123,9 +142,9 @@ public class ListaConcatenata<E> {
         if(index < 0 || index >= size)
             throw new IndiceFuoriRangeException();
         
-        Nodo<E> cursore = findNodo(index);
-        E oldValue = cursore.info;
-        cursore.info = element;
+        Nodo<E> corrente = findNodo(index);
+        E oldValue = corrente.info;
+        corrente.info = element;
         
         return oldValue;
     }
@@ -134,38 +153,58 @@ public class ListaConcatenata<E> {
         if(index < 0 || index >= size)
             throw new IndiceFuoriRangeException();
         
-        Nodo<E> precedente, corrente;
         if(index == 0)
             return removeFirst();
         else if(index == (size-1))
             return removeLast();
-        else {
-            precedente = findNodo(index-1);
-            corrente = precedente.next;
-            precedente.next = corrente.next;
-            corrente.next = null;
-            size--;
+        
+        Nodo<E> precedente = findNodo(index-1);
+        Nodo<E> corrente = precedente.next;
+        E old = corrente.info;
+        precedente.next = corrente.next;
+        corrente.next = null;
+        size--;
+        
+        return old;
+    }
+    
+    public boolean remove(E element) {
+        boolean trovato = false;
+        
+        Nodo<E> precedente = inizio;
+        Nodo<E> corrente = precedente.next;
+        while(!trovato && corrente != null) {
+            if(corrente.info.equals(element)) {
+                precedente.next = corrente.next;
+                corrente.next = null;
+                size--;
+                trovato = true;
+            }
+            precedente = corrente;
+            corrente = corrente.next;
         }
         
-        return corrente.info;
+        return trovato;
     }
     
     public E removeFirst() {
-        Nodo<E> cursore = inizio.next;
+        Nodo<E> corrente = inizio.next;
+        E old = inizio.info;
         inizio.next = null;
-        inizio = cursore;
+        inizio = corrente;
         size--;
         
-        return cursore.info;
+        return old;
     }
     
     public E removeLast() {
-        Nodo<E> cursore = findNodo(size-2);
-        fine = cursore;
+        Nodo<E> precedente = findNodo(size-2);
+        E old = fine.info;
+        fine = precedente;
         fine.next = null;
         size--;
         
-        return cursore.info;
+        return old;
     }
     
     public int size() {
@@ -183,11 +222,11 @@ public class ListaConcatenata<E> {
     public int indexOf(E element) {
         int index = -1;
         
-        Nodo<E> cursore = inizio;
-        for(int i = 0; index == -1 && cursore != null; i++) {
-            if(cursore.info.equals(element))
+        Nodo<E> corrente = inizio;
+        for(int i = 0; index == -1 && corrente != null; i++) {
+            if(corrente.info.equals(element))
                 index = i;
-            cursore = cursore.next;
+            corrente = corrente.next;
         }
         
         return index;
@@ -200,20 +239,20 @@ public class ListaConcatenata<E> {
     
     public Iteratore<E> iterator() {
         return new Iteratore<E>() {
-            Nodo<E> cursore = inizio;
+            Nodo<E> corrente = inizio;
             
             @Override
             public boolean haSuccessivo() {
-                return cursore != null;
+                return corrente != null;
             }
 
             @Override
             public E successivo() {
-                if(cursore == null)
+                if(corrente == null)
                     throw new NessunElementoException();
                 
-                E element = cursore.info;
-                cursore = cursore.next;
+                E element = corrente.info;
+                corrente = corrente.next;
                 
                 return element;
             }
