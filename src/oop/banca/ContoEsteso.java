@@ -46,8 +46,8 @@ public class ContoEsteso extends ContoBancario {
      * 
      * @param numeroConto - il numero di conto
      */
-    public ContoEsteso(String numeroConto) {
-        this(numeroConto, 0.0);
+    public ContoEsteso(String iban) {
+        this(iban, 0.0);
     }
     
     /**
@@ -55,11 +55,11 @@ public class ContoEsteso extends ContoBancario {
      * Metodo costruttore che richiama col this l'altro costruttore (quello che
      * accetta una stinga, un double e un double).
      * 
-     * @param numeroConto - il numero di conto
+     * @param iban - il numero di conto
      * @param saldo - il saldo del conto
      */
-    public ContoEsteso(String numeroConto, double saldo) {
-        this(numeroConto, saldo, 1000.0);
+    public ContoEsteso(String iban, double saldo) {
+        this(iban, saldo, 1000.0);
     }
     
     /**
@@ -68,12 +68,12 @@ public class ContoEsteso extends ContoBancario {
      * classe (quello che accetta una stinga e un double) e inizializza anche
      * il fido.
      * 
-     * @param numeroConto - il numero di conto
+     * @param iban - il numero di conto
      * @param saldo - il saldo del conto
      * @param fido - il fido del conto
      */
-    public ContoEsteso(String numeroConto, double saldo, double fido) {
-        super(numeroConto, saldo);
+    public ContoEsteso(String iban, double saldo, double fido) {
+        super(iban, saldo);
         
         this.fido = fido;
     }
@@ -112,7 +112,7 @@ public class ContoEsteso extends ContoBancario {
      */
     @Override
     public boolean preleva(double ammontare) {
-        if(ammontare > (saldo+fido))
+        if(ammontare < 0 || ammontare > (saldo+fido))
             return false;
         
         saldo -= ammontare;
@@ -129,7 +129,7 @@ public class ContoEsteso extends ContoBancario {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(numeroConto, saldo, fido);
+        return Objects.hash(iban, saldo, fido);
     }
     
     /**
@@ -143,15 +143,11 @@ public class ContoEsteso extends ContoBancario {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
         if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
         ContoEsteso ce = (ContoEsteso) obj;
-        if (Double.doubleToLongBits(saldo) != Double.doubleToLongBits(ce.saldo))
-            return false;
         
         return Double.doubleToLongBits(fido) == Double.doubleToLongBits(ce.fido);
     }

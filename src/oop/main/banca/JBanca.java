@@ -67,7 +67,7 @@ public class JBanca {
                 case "3":
                     int index = get(banca);
                     if(index != -1) {
-                        ContoBancario cb = banca.read(index);
+                        ContoBancario cb = banca.get(index);
                         JOptionPane.showMessageDialog(null, cb, "Banca", JOptionPane.INFORMATION_MESSAGE);
                     }
                     break;
@@ -145,7 +145,7 @@ public class JBanca {
             cb = new ContoBancario(numeroConto);
         }
         
-        banca.create(cb);
+        banca.add(cb);
     }
     
     private static void createE(Banca banca) {
@@ -170,7 +170,7 @@ public class JBanca {
             ce.setFido(fido);
         }
         
-        banca.create(ce);
+        banca.add(ce);
     }
     
     private static int get(Banca banca) {
@@ -180,7 +180,7 @@ public class JBanca {
         
         String contiPresenti[] = new String[numConti];
         for(int i = 0; i < numConti; i++)
-            contiPresenti[i] = banca.read(i).getNumeroConto();
+            contiPresenti[i] = banca.get(i).getIban();
         
         String numeroConto = (String) JOptionPane.showInputDialog(null, "Quale conto?", "Banca",
                 JOptionPane.QUESTION_MESSAGE, null, contiPresenti, contiPresenti[0]);
@@ -188,7 +188,7 @@ public class JBanca {
         if(numeroConto != null) {
             int index = -1;
             for(int i = 0; i < numConti; i++)
-                if(numeroConto.equals(banca.read(i).getNumeroConto())) {
+                if(numeroConto.equals(banca.get(i).getIban())) {
                     index = i;
                     break;
                 }
@@ -206,8 +206,8 @@ public class JBanca {
         
         ContoBancario newCB;
         
-        ContoBancario oldCB = banca.read(index);
-        String numeroConto = oldCB.getNumeroConto();
+        ContoBancario oldCB = banca.get(index);
+        String numeroConto = oldCB.getIban();
         double saldo = oldCB.getSaldo();
         
         int cambioNumeroConto = JOptionPane.showConfirmDialog(null, "Vuoi cambiare il numero di conto?", "Banca", JOptionPane.YES_NO_OPTION);
@@ -233,7 +233,7 @@ public class JBanca {
         } else
             newCB = new ContoBancario(numeroConto, saldo);
         
-        banca.update(index, newCB);
+        banca.set(index, newCB);
         
         StringBuilder builder = new StringBuilder();
         builder.append("Il conto\n\n");
@@ -272,7 +272,7 @@ public class JBanca {
         if(index == -1)
             return;
         
-        ContoBancario cb = banca.read(index);
+        ContoBancario cb = banca.get(index);
         
         Double somme[] = { 100.0d, 200.0d, 500.0d, 1000.0d };
         double somma = (double) JOptionPane.showInputDialog(null, "Quanto vuoi depositare?", "Banca",
@@ -286,7 +286,7 @@ public class JBanca {
         if(index == -1)
             return;
         
-        ContoBancario cb = banca.read(index);
+        ContoBancario cb = banca.get(index);
         
         Double somme[] = { 100.0d, 200.0d, 500.0d, 1000.0d };
         double somma = (double) JOptionPane.showInputDialog(null, "Quanto vuoi prelevare?", "Banca",

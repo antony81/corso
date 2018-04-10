@@ -29,10 +29,16 @@ import java.util.logging.Logger;
 /**
  *
  * @author Antonio
+ * 
+ * Classe con metodi statici i quali consentono di salvare e caricare oggetti
+ * di tipo Banca sfruttando la serializzazione.
  */
 public class BancaIO {
     
     private final static Logger LOGGER = Logger.getLogger(BancaIO.class.getName()); // creazione di un logger
+    
+    private BancaIO() {
+    }
     
     /**
      * 
@@ -52,7 +58,7 @@ public class BancaIO {
                 ObjectOutputStream oos = new ObjectOutputStream(fos); ) {
             oos.writeInt(banca.size());
             for(int i = 0; i < banca.size(); i++)
-                oos.writeObject(banca.read(i));
+                oos.writeObject(banca.get(i));
             
             LOGGER.log(Level.SEVERE, "Salvataggio andato a buon fine");
         } catch (FileNotFoundException ex) {
@@ -84,7 +90,7 @@ public class BancaIO {
             banca = new Banca(size);
             for(int i = 0; i < size; i++) {
                 ContoBancario bankAccount = (ContoBancario) ois.readObject();
-                banca.create(bankAccount);
+                banca.add(bankAccount);
             }
             
             LOGGER.log(Level.SEVERE, "Caricamento andato a buon fine");

@@ -37,40 +37,39 @@ public class ContoBancario implements Serializable {
     
     private static final long serialVersionUID = -2886419301638293782L;
     
-    protected String numeroConto; // variabile d'instanza
+    protected String iban; // variabile d'instanza
     protected double saldo; // variabile d'instanza
     
-    private static int contiAttivi = 0; // variabile statica (sarà condivisa tra tutti gli oggetti di tipo ContoBancario)
+    private static int count = 0; // variabile statica (sarà condivisa tra tutti gli oggetti di tipo ContoBancario)
     
     /**
      * 
-     * Metodo costruttore che inizializza la variabile d'istanza 'numeroConto'
-     * con la stringa passata come parametro e la variabile d'istanza 'saldo'
-     * a 0.0 come default. Da notare che il metodo richiama col 'this' l'altro
+     * Metodo costruttore che inizializza la variabile d'istanza 'iban' con la
+     * stringa passata come parametro e la variabile d'istanza 'saldo' a 2000.0
+     * come default. Da notare che il metodo richiama col 'this' l'altro
      * metodo costruttore.
      * 
-     * @param numeroConto - il numero di conto
+     * @param iban - il numero di conto
      */
-    public ContoBancario(String numeroConto) {
-        this(numeroConto, 0.0);
+    public ContoBancario(String iban) {
+        this(iban, 0.0);
     }
     
     /**
      * 
      * Metodo costruttore pubblico che inizializza le variabili d'istanza
-     * 'numeroConto' e 'saldo' con i valori contenuti nei parametri passati
-     * al metodo. Inoltre viene incrementata la variabile statica 'contiAttivi'
-     * che consente di tenere traccia del numero di conti che verranno
-     * instanziati.
+     * 'iban' e 'saldo' con i valori contenuti nei parametri passati al metodo.
+     * Inoltre viene incrementata la variabile statica 'count' che consente di
+     * tenere traccia del numero di conti che verranno instanziati.
      * 
-     * @param numeroConto - il numero di conto
+     * @param iban - il numero di conto
      * @param saldo - il saldo iniziale del conto
      */
-    public ContoBancario(String numeroConto, double saldo) {
-        this.numeroConto = numeroConto;
+    public ContoBancario(String iban, double saldo) {
+        this.iban = iban;
         this.saldo = saldo;
         
-        contiAttivi++;
+        count++;
     }
     
     /**
@@ -79,18 +78,18 @@ public class ContoBancario implements Serializable {
      * 
      * @return il numero di conto
      */
-    public String getNumeroConto() {
-        return numeroConto;
+    public String getIban() {
+        return iban;
     }
     
     /**
      * 
      * Metodo mutatore che permette di cambiare il numero di conto
      * 
-     * @param numeroConto - il numero di conto
+     * @param iban - il numero di conto
      */
-    public void setNumeroConto(String numeroConto) {
-        this.numeroConto = numeroConto;
+    public void setIban(String iban) {
+        this.iban = iban;
     }
     
     /**
@@ -109,8 +108,8 @@ public class ContoBancario implements Serializable {
      * 
      * @return il numero di conti creati
      */
-    public static int contiAttivi() {
-        return contiAttivi;
+    public static int count() {
+        return count;
     }
     
     /**
@@ -142,7 +141,7 @@ public class ContoBancario implements Serializable {
      * @return true se è possibile prelvare, false altrimenti
      */
     public boolean preleva(double ammontare) {
-        if(ammontare > saldo)
+        if(ammontare < 0 || ammontare > saldo)
             return false;
         
         saldo -= ammontare;
@@ -151,15 +150,15 @@ public class ContoBancario implements Serializable {
     }
     
     /* Override del metodo finalize per testare il 'Garbage Collector' di Java.
-    Il metodo decrementa la variabile 'contiAttivi' se un oggetto instanziato
-    per questa classe non è più referenziato e quindi soggetto a essere rimosso
+    Il metodo decrementa la variabile 'count' se un oggetto instanziato per
+    questa classe non è più referenziato e quindi soggetto a essere rimosso
     dalla memoria dal 'Garbage Collector', il quale chiama questo metodo prima
     di pulire effettivamente la memoria.
     */
     @Override
     protected void finalize() throws Throwable {
         try {
-            contiAttivi--;
+            count--;
         } finally {
             super.finalize();
         }
@@ -174,14 +173,14 @@ public class ContoBancario implements Serializable {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(numeroConto, saldo);
+        return Objects.hash(iban, saldo);
     }
     
     /**
      * 
      * Implementazione del metodo 'equals' per permettere il confronto tra due
      * oggetti di tipo 'ContoBancario'. Due oggetti di questo tipo saranno
-     * uguali se il saldo è uguale.
+     * uguali se l'iban ed il saldo sono uguali.
      * 
      * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
      * @return true se gli oggetti sono uguali, false altrimenti
@@ -196,7 +195,7 @@ public class ContoBancario implements Serializable {
             return false;
         ContoBancario cb = (ContoBancario) obj;
         
-        return Double.doubleToLongBits(saldo) == Double.doubleToLongBits(cb.saldo);
+        return iban.equals(cb.iban) && Double.doubleToLongBits(saldo) == Double.doubleToLongBits(cb.saldo);
     }
     
     /**
@@ -215,8 +214,8 @@ public class ContoBancario implements Serializable {
         DecimalFormat format = new DecimalFormat("0.00", symbols);
         
         StringBuilder builder = new StringBuilder();
-        builder.append("numero conto: ");
-        builder.append(numeroConto);
+        builder.append("iban: ");
+        builder.append(iban);
         builder.append(", saldo: ");
         builder.append(format.format(saldo));
         

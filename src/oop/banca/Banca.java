@@ -23,7 +23,7 @@ package oop.banca;
  * Classe che rappresenta una banca la quale conterrà conti bancari e conti
  * estesi. Per fare ciò la classe incapsula un array di oggetti di tipo
  * ContoBancario, un intero che conta il numero di conti preseti nella banca e
- * un altro intero che rappresenta la capactà massima dell'array. La capacità
+ * un altro intero che rappresenta la capacità massima dell'array. La capacità
  * verrà usata esclusivamente per controllare che l'array sia pieno in modo tale
  * che la dimensione possa essere raddoppiata qualora fosse saturo.
  * Inoltre l'array potrà contenere sia oggetti di tipo ContoBancario, sia
@@ -33,41 +33,41 @@ public class Banca {
     
     private ContoBancario[] conti; // variabile d'instanza
     
-    private int numConti, capacita; // variabili d'instanza
+    private int size, capacity; // variabili d'instanza
     
     /**
      * Costruttore di default che richiama l'altro costruttore in overloading
-     * passando il valore 50. Ciò significa che richiamando questo costruttore
-     * l'array inizialmente avrà una capacità di 50 elementi.
+     * passando il valore 5. Ciò significa che richiamando questo costruttore
+     * l'array inizialmente avrà una capacità di 5 elementi.
      */
     public Banca() {
-        this(50);
+        this(5);
     }
     
     /**
      * 
-     * @param capacita - la capacità iniziale della banca
+     * @param capacity - la capacità iniziale della banca
      * 
      * Costruttore responsabile alla creazione di un oggetto di tipo Banca in
      * cui viene inizializzato l'array con dimensione pari alla capacità passata
      * come parametro al metodo.
      */
-    public Banca(int capacita) {
-        conti = new ContoBancario[capacita];
-        this.capacita = capacita;
-        numConti = 0;
+    public Banca(int capacity) {
+        conti = new ContoBancario[capacity];
+        size = 0;
+        this.capacity = capacity;
     }
     
     /**
      * 
      * @param cb - l'oggetto da inserire in banca
      * 
-     * Metodo in overloading che richiama l'altro metodo 'create' passando come
-     * 'index' la variabile d'istanza 'numConti' e l'oggetto 'cb'. In sostanza
+     * Metodo in overloading che richiama l'altro metodo 'add' passando come
+     * 'index' la variabile d'istanza 'size' e l'oggetto 'cb'. In sostanza
      * questo metodo inserisce l'oggetto 'cb' in coda all'array.
      */
-    public void create(ContoBancario cb) {
-        create(numConti, cb);
+    public void add(ContoBancario cb) {
+        add(size, cb);
     }
     
     /**
@@ -77,27 +77,26 @@ public class Banca {
      * 
      * Questo metodo ha il compito di inserire un oggetto di tipo ContoBancario
      * alla posizione 'index' passata come parametro. Inoltre il metodo è in
-     * grado di aumentare la dimensione dell'array qualore fosse saturo.
+     * grado di aumentare la dimensione dell'array qualora fosse saturo.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto.
      */
-    public void create(int index, ContoBancario cb) {
-        if(index < 0 || index > numConti)
+    public void add(int index, ContoBancario cb) {
+        if(index < 0 || index > size)
             throw new IndexOutOfBoundsException();
         
-        if(numConti == capacita) {
+        if(size == capacity) {
+            capacity *= 2;
             ContoBancario[] tmp = conti;
-            capacita *= 2;
-            conti = new ContoBancario[capacita];
-            System.arraycopy(tmp, 0, conti, 0, numConti);
+            conti = new ContoBancario[capacity];
+            System.arraycopy(tmp, 0, conti, 0, size);
         }
         
-        for(int i = numConti; i > index; i--) {
+        for(int i = size; i > index; i--)
             conti[i] = conti[i-1];
-        }
         
         conti[index] = cb;
-        numConti++;
+        size++;
     }
     
     /**
@@ -110,8 +109,8 @@ public class Banca {
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto.
      */
-    public ContoBancario read(int index) {
-        if(index < 0 || index > numConti)
+    public ContoBancario get(int index) {
+        if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         
         return conti[index];
@@ -121,38 +120,43 @@ public class Banca {
      * 
      * @param index - l'indice su cui aggiornare un oggetto di tipo ContoBancario
      * @param cb - l'oggetto di tipo ContoBancario
+     * @return l'oggetto presente prima dell'aggiornamento
      * 
      * Metodo che sostituisce un oggetto di tipo ContoBancario in una
      * determinata posizione data dal parametro 'index'.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
-     * non rientra in un range corretto.
+     * non rientra in un range corretto e restituisce l'oggetto che c'era prima
+     * dell'aggiornamento.
      */
-    public void update(int index, ContoBancario cb) {
-        if(index < 0 || index > numConti)
+    public ContoBancario set(int index, ContoBancario cb) {
+        if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         
+        ContoBancario old = conti[index];
         conti[index] = cb;
+        
+        return old;
     }
     
     /**
      * 
      * @param index - l'indice dell'oggetto da rimuovere
-     * @return l'oggetto rimosso.
+     * @return l'oggetto rimosso
      * 
      * Metodo che rimuove un oggetto di tipo ContoBancario ad un determinato
      * indice.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
-     * non rientra in un range corretto.
+     * non rientra in un range corretto e restituisce l'oggetto rimosso.
      */
     public ContoBancario delete(int index) {
-        if(index < 0 || index > numConti)
+        if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         
         ContoBancario old = conti[index];
         
-        for(int i = (index+1); i < numConti; i++)
+        for(int i = (index+1); i < size; i++)
             conti[i-1] = conti[i];
-        numConti--;
+        size--;
         
         return old;
     }
@@ -187,7 +191,7 @@ public class Banca {
     public int indexOf(ContoBancario cb) {
         int index = -1;
         
-        for(int i = 0; index == -1 && i < numConti; i++)
+        for(int i = 0; index == -1 && i < size; i++)
             if(conti[i].equals(cb))
                 index = i;
         
@@ -213,7 +217,7 @@ public class Banca {
      * Metodo che ritorna la quantità di conti bancari presenti in banca.
      */
     public int size() {
-        return numConti;
+        return size;
     }
     
     /**
@@ -224,7 +228,7 @@ public class Banca {
      * Se invece nella banca è presente almeno un conto il metodo ritorna false.
      */
     public boolean isEmpty() {
-        return numConti == 0;
+        return size == 0;
     }
     
     /**
@@ -232,8 +236,8 @@ public class Banca {
      * banca dove tutti i conti vengono eliminati.
      */
     public void clear() {
-        conti = new ContoBancario[capacita];
-        numConti = 0;
+        conti = new ContoBancario[capacity];
+        size = 0;
     }
     
     /**
@@ -247,11 +251,14 @@ public class Banca {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Lista dei conti\n\n");
-        for(int i = 0; i < numConti; i++) {
-            builder.append(i+1).append(") ");
-            builder.append(conti[i]).append("\n");
-        }
+        builder.append("lista dei conti\n\n");
+        if(size == 0)
+            builder.append("nessun conto presente");
+        else
+            for(int i = 0; i < size; i++) {
+                builder.append(i+1).append(") ");
+                builder.append(conti[i]).append("\n");
+            }
         
         return builder.toString();
     }
