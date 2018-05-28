@@ -148,7 +148,7 @@ public class Banca {
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto e restituisce l'oggetto rimosso.
      */
-    public ContoBancario delete(int index) {
+    public ContoBancario remove(int index) {
         if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         
@@ -170,12 +170,12 @@ public class Banca {
      * Se l'oggetto c'è il metodo lo rimuove e ritorna true. Se l'oggetto non
      * c'è ritorna false.
      */
-    public boolean delete(ContoBancario cb) {
+    public boolean remove(ContoBancario cb) {
         int index = indexOf(cb);
         if(index == -1)
             return false;
         
-        delete(index);
+        remove(index);
         
         return true;
     }

@@ -249,7 +249,7 @@ public class JBanca {
         if(index == -1)
             return;
         
-        ContoBancario oldCB = banca.delete(index);
+        ContoBancario oldCB = banca.remove(index);
         
         StringBuilder builder = new StringBuilder();
         builder.append("Il conto\n\n");

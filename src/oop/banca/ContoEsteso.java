@@ -44,7 +44,7 @@ public class ContoEsteso extends ContoBancario {
      * Metodo costruttore che richiama col this l'altro costruttore (quello che
      * accetta una stinga e un double).
      * 
-     * @param numeroConto - il numero di conto
+     * @param iban - il numero di conto
      */
     public ContoEsteso(String iban) {
         this(iban, 0.0);
