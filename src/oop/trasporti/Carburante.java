@@ -22,37 +22,45 @@ package oop.trasporti;
  */
 public enum Carburante {
     
-    BENZINA('S', 101) {
+    BENZINA('S', 101, 0.725) {
         @Override
         public String dscrizione() {
             return "Liquido altamente infiammabile ottenuto dalla distillazione del petrolio greggio";
         }
     },
-    DIESEL('D', 20) {
+    DIESEL('D', 20, 0.825) {
         @Override
         public String dscrizione() {
             return "Miscela di idrocarburi liquidi ottenuta dalla distillazione frazionata del petrolio";
         }
     },
-    GPL('G', 93) {
+    GPL('G', 93, 0.516) {
         @Override
         public String dscrizione() {
             return "Miscela di idrocarburi alcani a basso peso molecolare composta principalmente da propano e butano";
         }
     },
-    METANO('M', 122) {
+    METANO('M', 122, 0.656) {
         @Override
         public String dscrizione() {
             return "Idrocarburo semplice formato da un atomo di carbonio e quattro di idrogeno";
+        }
+    },
+    CHEROSENE('K', 111, 0.821) {
+        @Override
+        public String dscrizione() {
+            return "Idrocarburo liquido incolore composto da atomi di carbonio e idrogeno";
         }
     };
     
     private char sigla;
     private int ottani;
+    private double pesoSpecifico;
     
-    private Carburante(char sigla, int ottani) {
+    private Carburante(char sigla, int ottani, double pesoSpecifico) {
         this.sigla = sigla;
         this.ottani = ottani;
+        this.pesoSpecifico = pesoSpecifico;
     }
     
     public char getSigla() {
@@ -69,6 +77,14 @@ public enum Carburante {
     
     public void setOttani(int ottani) {
         this.ottani = ottani;
+    }
+
+    public double getPesoSpecifico() {
+        return pesoSpecifico;
+    }
+
+    public void setPesoSpecifico(double pesoSpecifico) {
+        this.pesoSpecifico = pesoSpecifico;
     }
     
     public abstract String dscrizione();

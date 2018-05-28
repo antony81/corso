@@ -16,66 +16,171 @@
  */
 package oop.trasporti;
 
-import oop.individui.Persona;
+import java.util.Objects;
 
 /**
  *
  * @author Antonio
  */
-public class Auto extends Veicolo {
+public class Auto extends VeicoloTerrestre {
     
-    private int posti;
+    private Tipo tipo;
 
-    public Auto(String targa, int cilindrata, double consumo, Carburante carburante, Persona proprietario, int posti) {
-        super(targa, cilindrata, consumo, carburante, proprietario);
+    public Auto(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, Tipo tipo) {
+        super(cilindrata, carburante, volumeSerbatoio, targa);
         
-        this.posti = posti;
+        this.tipo = tipo;
     }
 
-    public int getPosti() {
-        return posti;
+    public Tipo getTipo() {
+        return tipo;
     }
 
-    public void setPosti(int posti) {
-        this.posti = posti;
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public int velocitaMax() {
+        int velocita = 0;
+        
+        switch(carburante) {
+            case BENZINA: case CHEROSENE:
+                velocita = 190 + cilindrata / 100;
+                break;
+            case DIESEL:
+                velocita = 160 + cilindrata / 100;
+                break;
+            case GPL:
+                velocita = 180 + cilindrata / 100;
+                break;
+            case METANO:
+                velocita = 170 + cilindrata / 100;
+        }
+        int tmp = (velocita % 10);
+        velocita = ((tmp < 5) ? (velocita-tmp) : (velocita-tmp+10));
+        switch(tipo) {
+            case UTILITARIA:
+                velocita += 20;
+                break;
+            case STATION_WAGON:
+                velocita += 10;
+                break;
+            case SUV:
+                velocita += 30;
+                break;
+            case SUPERCAR:
+                velocita += 40;
+        }
+        
+        return velocita;
+    }
+
+    @Override
+    public String consumo() {
+        double consumo = 0.0;
+        
+        switch(carburante) {
+            case BENZINA:
+                consumo = 16.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.BENZINA.getOttani();
+                break;
+            case DIESEL:
+                consumo = 20.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.DIESEL.getOttani();
+                break;
+            case GPL:
+                consumo = 24.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.GPL.getOttani();
+                break;
+            case METANO:
+                consumo = 22.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.METANO.getOttani();
+                break;
+            case CHEROSENE:
+                consumo = 16.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.CHEROSENE.getOttani();
+        }
+        switch(tipo) {
+            case UTILITARIA:
+                consumo += 2.0;
+                break;
+            case STATION_WAGON:
+                consumo += 2.5;
+                break;
+            case SUV:
+                consumo += 1.5;
+                break;
+            case SUPERCAR:
+                consumo += 1.0;
+        }
+        
+        return consumo + "Km/l";
+    }
+
+    @Override
+    public double peso() {
+        double peso = 0.0;
+        
+        switch(carburante) {
+            case BENZINA:
+                peso = volumeSerbatoio * Carburante.BENZINA.getPesoSpecifico();
+                break;
+            case DIESEL:
+                peso = volumeSerbatoio * Carburante.DIESEL.getPesoSpecifico();
+                break;
+            case GPL:
+                peso = volumeSerbatoio * Carburante.GPL.getPesoSpecifico();
+                break;
+            case METANO:
+                peso = volumeSerbatoio * Carburante.METANO.getPesoSpecifico();
+                break;
+            case CHEROSENE:
+                peso = volumeSerbatoio * Carburante.CHEROSENE.getPesoSpecifico();
+        }
+        switch(tipo) {
+            case UTILITARIA:
+                peso += peso * 0.2;
+                break;
+            case STATION_WAGON:
+                peso += peso * 0.5;
+                break;
+            case SUV:
+                peso += peso * 0.4;
+                break;
+            case SUPERCAR:
+                peso += peso * 0.3;
+        }
+        
+        return peso;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int hash = super.hashCode();
+        hash = 59 * hash + Objects.hashCode(this.tipo);
+        
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (!super.equals(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final Auto a = (Auto) obj;
-        if (this.cilindrata != a.cilindrata) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.consumo) != Double.doubleToLongBits(a.consumo)) {
-            return false;
-        }
-        if (this.carburante != a.carburante) {
-            return false;
-        }
         
-        return this.posti == a.posti;
+        return this.tipo == a.tipo;
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(super.toString());
-        builder.append(", posti=");
-        builder.append(posti);
+        StringBuilder builder = new StringBuilder(super.toString());
+        builder.append(", tipo: ");
+        builder.append(tipo);
         
         return builder.toString();
     }

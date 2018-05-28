@@ -16,20 +16,30 @@
  */
 package oop.trasporti;
 
-import oop.individui.Persona;
+import java.util.Objects;
 
 /**
  *
  * @author Antonio
  */
-public class Moto extends Veicolo {
+public class Moto extends VeicoloTerrestre {
     
+    private Tipo tipo;
     private Tempi tempi;
     
-    public Moto(String targa, int cilindrata, double consumo, Carburante carburante, Persona proprietario, Tempi tempi) {
-        super(targa, cilindrata, consumo, carburante, proprietario);
+    public Moto(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, Tipo tipo, Tempi tempi) {
+        super(cilindrata, carburante, volumeSerbatoio, targa);
         
+        this.tipo = tipo;
         this.tempi = tempi;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public Tempi getTempi() {
@@ -41,29 +51,97 @@ public class Moto extends Veicolo {
     }
 
     @Override
+    public int velocitaMax() {
+        int velocita = 100 + cilindrata / 100;
+        
+        switch(tipo) {
+            case SCOOTER:
+                velocita += 2;
+                break;
+            case STRADALE:
+                velocita += 5;
+                break;
+            case SPORTIVA:
+                velocita += 10;
+                break;
+            case NAKED:
+                velocita += 4;
+                break;
+            case CROSS:
+                velocita += 3;
+        }
+        
+        return velocita;
+    }
+
+    @Override
+    public String consumo() {
+        double consumo = 16.0 * 1000.0 / cilindrata;
+        consumo += consumo * Carburante.BENZINA.getOttani();
+        
+        switch(tipo) {
+            case SCOOTER:
+                consumo += 0.5;
+                break;
+            case STRADALE:
+                consumo += 1.5;
+                break;
+            case SPORTIVA:
+                consumo += 2.5;
+                break;
+            case NAKED:
+                consumo += 2.0;
+                break;
+            case CROSS:
+                consumo += 3.0;
+        }
+        
+        return consumo + "Km/l";
+    }
+
+    @Override
+    public double peso() {
+        double peso = volumeSerbatoio * Carburante.BENZINA.getPesoSpecifico();
+        
+        switch(tipo) {
+            case SCOOTER:
+                peso += peso * 0.05;
+                break;
+            case STRADALE:
+                peso += peso * 0.7;
+                break;
+            case SPORTIVA:
+                peso += peso * 0.9;
+                break;
+            case NAKED:
+                peso += peso * 0.5;
+                break;
+            case CROSS:
+                peso += peso * 0.1;
+        }
+        
+        return peso;
+    }
+
+    @Override
     public int hashCode() {
-        return super.hashCode();
+        int hash = super.hashCode();
+        hash = 29 * hash + Objects.hashCode(this.tipo);
+        hash = 29 * hash + Objects.hashCode(this.tempi);
+        
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (!super.equals(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final Moto m = (Moto) obj;
-        if (this.cilindrata != m.cilindrata) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.consumo) != Double.doubleToLongBits(m.consumo)) {
-            return false;
-        }
-        if (this.carburante != m.carburante) {
+        if (this.tipo != m.tipo) {
             return false;
         }
         
@@ -72,10 +150,11 @@ public class Moto extends Veicolo {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(super.toString());
-        builder.append(", tempi=");
-        builder.append(tempi.getVal());
+        StringBuilder builder = new StringBuilder(super.toString());
+        builder.append(", tipo: ");
+        builder.append(tipo);
+        builder.append(", tempi: ");
+        builder.append(tempi);
         
         return builder.toString();
     }

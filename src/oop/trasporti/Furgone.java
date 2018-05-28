@@ -16,18 +16,16 @@
  */
 package oop.trasporti;
 
-import oop.individui.Persona;
-
 /**
  *
  * @author Antonio
  */
-public class Furgone extends Veicolo {
+public class Furgone extends VeicoloTerrestre {
     
     private double capacita;
     
-    public Furgone(String targa, int cilindrata, double consumo, Carburante carburante, Persona proprietario, double capacita) {
-        super(targa, cilindrata, consumo, carburante, proprietario);
+    public Furgone(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double capacita) {
+        super(cilindrata, carburante, volumeSerbatoio, targa);
         
         this.capacita = capacita;
     }
@@ -41,40 +39,106 @@ public class Furgone extends Veicolo {
     }
 
     @Override
+    public int velocitaMax() {
+        int velocita = 0;
+        
+        switch(carburante) {
+            case BENZINA: case CHEROSENE:
+                velocita = 180 + cilindrata / 100;
+                break;
+            case DIESEL:
+                velocita = 150 + cilindrata / 100;
+                break;
+            case GPL:
+                velocita = 170 + cilindrata / 100;
+                break;
+            case METANO:
+                velocita = 160 + cilindrata / 100;
+        }
+        int tmp = (velocita % 10);
+        velocita = ((tmp < 5) ? (velocita-tmp) : (velocita-tmp+10));
+        
+        return velocita;
+    }
+
+    @Override
+    public String consumo() {
+        double consumo = 0.0;
+        
+        switch(carburante) {
+            case BENZINA:
+                consumo = 18.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.BENZINA.getOttani();
+                break;
+            case DIESEL:
+                consumo = 22.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.DIESEL.getOttani();
+                break;
+            case GPL:
+                consumo = 26.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.GPL.getOttani();
+                break;
+            case METANO:
+                consumo = 24.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.METANO.getOttani();
+                break;
+            case CHEROSENE:
+                consumo = 18.0 * 1000.0 / cilindrata;
+                consumo += consumo * Carburante.CHEROSENE.getOttani();
+        }
+        
+        return consumo + "Km/l";
+    }
+
+    @Override
+    public double peso() {
+        double peso = 0.0;
+        
+        switch(carburante) {
+            case BENZINA:
+                peso = volumeSerbatoio * Carburante.BENZINA.getPesoSpecifico();
+                break;
+            case DIESEL:
+                peso = volumeSerbatoio * Carburante.DIESEL.getPesoSpecifico();
+                break;
+            case GPL:
+                peso = volumeSerbatoio * Carburante.GPL.getPesoSpecifico();
+                break;
+            case METANO:
+                peso = volumeSerbatoio * Carburante.METANO.getPesoSpecifico();
+                break;
+            case CHEROSENE:
+                peso = volumeSerbatoio * Carburante.CHEROSENE.getPesoSpecifico();
+        }
+        
+        return peso;
+    }
+
+    @Override
     public int hashCode() {
-        return super.hashCode();
+        int hash = super.hashCode();
+        hash = 41 * hash + (int) (Double.doubleToLongBits(this.capacita) ^ (Double.doubleToLongBits(this.capacita) >>> 32));
+        
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (!super.equals(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
         final Furgone f = (Furgone) obj;
-        if (this.cilindrata != f.cilindrata) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.consumo) != Double.doubleToLongBits(f.consumo)) {
-            return false;
-        }
-        if (this.carburante != f.carburante) {
-            return false;
-        }
         
         return Double.doubleToLongBits(this.capacita) == Double.doubleToLongBits(f.capacita);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(super.toString());
-        builder.append(", capacità=");
+        StringBuilder builder = new StringBuilder(super.toString());
+        builder.append(", capacità: ");
         builder.append(capacita);
         
         return builder.toString();
