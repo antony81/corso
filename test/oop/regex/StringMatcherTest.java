@@ -94,6 +94,16 @@ public class StringMatcherTest {
     }
 
     /**
+     * Test of isValidPlate method, of class StringMatcher.
+     */
+    @Test
+    public void isValidPlate() {
+        System.out.println("isValidPlate");
+        assertTrue(instance.isValidPlate("CK987VV"));
+        assertFalse(instance.isValidPlate("D9D44KL"));
+    }
+
+    /**
      * Test of isNoNumberAtBeginning method, of class StringMatcher.
      */
     @Test

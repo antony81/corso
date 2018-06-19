@@ -59,6 +59,13 @@ public class StringMatcher {
     }
     
     /*
+    * returns true if the string contains a valid plate
+    */
+    public boolean isValidPlate(String s) {
+        return s.matches("[a-zA-Z]{2}[0-9]{3}[a-zA-Z]{2}");
+    }
+    
+    /*
     * returns true if the string does not have a number at the beginning
     */
     public boolean isNoNumberAtBeginning(String s) {
