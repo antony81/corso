@@ -126,9 +126,9 @@ public enum Elemento {
     NOBELIO("No", 102, 259.000),
     LAURENZIO("Lr", 103, 262.000);
     
-    private String simbolo;
-    private int numeroAtomico;
-    private double massaAtomica;
+    private final String simbolo;
+    private final int numeroAtomico;
+    private final double massaAtomica;
     
     /**
      * Il costruttore lo definiamo noi e prevede che vangano specificati alcuni
@@ -149,24 +149,12 @@ public enum Elemento {
         return simbolo;
     }
     
-    public void setSimbolo(String simbolo) {
-        this.simbolo = simbolo;
-    }
-    
     public int getNumeroAtomico() {
         return numeroAtomico;
     }
     
-    public void setNumeroAtomico(int numeroAtomico) {
-        this.numeroAtomico = numeroAtomico;
-    }
-    
     public double getMassaAtomica() {
         return massaAtomica;
-    }
-    
-    public void setMassaAtomica(double massaAtomica) {
-        this.massaAtomica = massaAtomica;
     }
     
 }
