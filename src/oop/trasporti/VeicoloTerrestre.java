@@ -17,6 +17,7 @@
 package oop.trasporti;
 
 import java.util.Objects;
+import oop.regex.StringMatcher;
 
 /**
  *
@@ -30,16 +31,28 @@ public abstract class VeicoloTerrestre extends AbstractVeicolo {
     public VeicoloTerrestre(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double coeffAttrito) {
         super(cilindrata, carburante, volumeSerbatoio);
         
-        this.targa = targa;
-        this.coeffAttrito = coeffAttrito;
+        setTarga(targa);
+        setCoeffAttrito(coeffAttrito);
     }
 
-    public String getTarga() {
+    public final String getTarga() {
         return targa;
     }
 
-    public void setTarga(String targa) {
+    public final void setTarga(String targa) {
+        StringMatcher sm = new StringMatcher();
+        if(!sm.isValidPlate(targa))
+            throw new TargaInvalidaException();
+        
         this.targa = targa;
+    }
+
+    public final double getCoeffAttrito() {
+        return coeffAttrito;
+    }
+
+    public final void setCoeffAttrito(double coeffAttrito) {
+        this.coeffAttrito = coeffAttrito;
     }
 
     @Override
