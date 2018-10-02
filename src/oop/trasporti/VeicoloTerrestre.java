@@ -54,10 +54,7 @@ public abstract class VeicoloTerrestre extends AbstractVeicolo {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (!super.equals(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {
@@ -67,6 +64,7 @@ public abstract class VeicoloTerrestre extends AbstractVeicolo {
         if (Double.doubleToLongBits(this.coeffAttrito) != Double.doubleToLongBits(other.coeffAttrito)) {
             return false;
         }
+        
         return Objects.equals(this.targa, other.targa);
     }
 
