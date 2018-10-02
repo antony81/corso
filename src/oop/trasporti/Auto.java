@@ -26,8 +26,8 @@ public class Auto extends VeicoloTerrestre {
     
     private Tipo tipo;
 
-    public Auto(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, Tipo tipo) {
-        super(cilindrata, carburante, volumeSerbatoio, targa);
+    public Auto(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double coeffAttrito, Tipo tipo) {
+        super(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito);
         
         this.tipo = tipo;
     }
@@ -70,7 +70,7 @@ public class Auto extends VeicoloTerrestre {
                 velocita += 30;
                 break;
             case SUPERCAR:
-                velocita += 40;
+                velocita += 50;
         }
         
         return velocita;
@@ -112,7 +112,7 @@ public class Auto extends VeicoloTerrestre {
                 consumo += 1.5;
                 break;
             case SUPERCAR:
-                consumo += 1.0;
+                consumo += 0.5;
         }
         
         return consumo + "Km/l";
@@ -157,10 +157,7 @@ public class Auto extends VeicoloTerrestre {
 
     @Override
     public int hashCode() {
-        int hash = super.hashCode();
-        hash = 59 * hash + Objects.hashCode(this.tipo);
-        
-        return hash;
+        return Objects.hash(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito, tipo);
     }
 
     @Override
