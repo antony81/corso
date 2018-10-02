@@ -16,6 +16,8 @@
  */
 package oop.trasporti;
 
+import java.util.Objects;
+
 /**
  *
  * @author Antonio
@@ -24,8 +26,8 @@ public class Furgone extends VeicoloTerrestre {
     
     private double capacita;
     
-    public Furgone(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double capacita) {
-        super(cilindrata, carburante, volumeSerbatoio, targa);
+    public Furgone(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double coeffAttrito, double capacita) {
+        super(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito);
         
         this.capacita = capacita;
     }
@@ -116,10 +118,7 @@ public class Furgone extends VeicoloTerrestre {
 
     @Override
     public int hashCode() {
-        int hash = super.hashCode();
-        hash = 41 * hash + (int) (Double.doubleToLongBits(this.capacita) ^ (Double.doubleToLongBits(this.capacita) >>> 32));
-        
-        return hash;
+        return Objects.hash(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito, capacita);
     }
 
     @Override
