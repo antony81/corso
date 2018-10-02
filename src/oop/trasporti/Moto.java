@@ -27,8 +27,8 @@ public class Moto extends VeicoloTerrestre {
     private Tipo tipo;
     private Tempi tempi;
     
-    public Moto(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, Tipo tipo, Tempi tempi) {
-        super(cilindrata, carburante, volumeSerbatoio, targa);
+    public Moto(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double coeffAttrito, Tipo tipo, Tempi tempi) {
+        super(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito);
         
         this.tipo = tipo;
         this.tempi = tempi;
@@ -125,11 +125,7 @@ public class Moto extends VeicoloTerrestre {
 
     @Override
     public int hashCode() {
-        int hash = super.hashCode();
-        hash = 29 * hash + Objects.hashCode(this.tipo);
-        hash = 29 * hash + Objects.hashCode(this.tempi);
-        
-        return hash;
+        return Objects.hash(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito, tipo, tempi);
     }
 
     @Override
