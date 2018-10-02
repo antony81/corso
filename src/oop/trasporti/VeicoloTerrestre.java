@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Consultant
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,16 +20,18 @@ import java.util.Objects;
 
 /**
  *
- * @author Consultant
+ * @author Antonio
  */
 public abstract class VeicoloTerrestre extends AbstractVeicolo {
     
     protected String targa;
+    protected double coeffAttrito;
 
-    public VeicoloTerrestre(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa) {
+    public VeicoloTerrestre(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double coeffAttrito) {
         super(cilindrata, carburante, volumeSerbatoio);
         
         this.targa = targa;
+        this.coeffAttrito = coeffAttrito;
     }
 
     public String getTarga() {
@@ -41,24 +43,31 @@ public abstract class VeicoloTerrestre extends AbstractVeicolo {
     }
 
     @Override
+    public double spazioFrenata() {
+        return Math.pow(velocitaMedia(), 2) / (2D * G * coeffAttrito);
+    }
+
+    @Override
     public int hashCode() {
-        int hash = super.hashCode();
-        hash = 67 * hash + Objects.hashCode(this.targa);
-        
-        return hash;
+        return Objects.hash(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!super.equals(obj)) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final VeicoloTerrestre vt = (VeicoloTerrestre) obj;
-        
-        return Objects.equals(this.targa, vt.targa);
+        final VeicoloTerrestre other = (VeicoloTerrestre) obj;
+        if (Double.doubleToLongBits(this.coeffAttrito) != Double.doubleToLongBits(other.coeffAttrito)) {
+            return false;
+        }
+        return Objects.equals(this.targa, other.targa);
     }
 
     @Override
