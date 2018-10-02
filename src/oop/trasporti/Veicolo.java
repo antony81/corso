@@ -22,10 +22,18 @@ package oop.trasporti;
  */
 public interface Veicolo {
     
+    double G = 9.8;
+    
+    int velocitaMedia();
+    
     int velocitaMax();
     
     String consumo();
     
     double peso();
+    
+    double energiaCinetica();
+    
+    double spazioFrenata();
     
 }
