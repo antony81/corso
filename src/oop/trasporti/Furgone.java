@@ -29,7 +29,7 @@ public class Furgone extends VeicoloTerrestre {
     public Furgone(int cilindrata, Carburante carburante, double volumeSerbatoio, String targa, double coeffAttrito, double capacita) {
         super(cilindrata, carburante, volumeSerbatoio, targa, coeffAttrito);
         
-        this.capacita = capacita;
+        setCapacita(capacita);
     }
 
     public double getCapacita() {
@@ -37,6 +37,9 @@ public class Furgone extends VeicoloTerrestre {
     }
 
     public void setCapacita(double capacita) {
+        if(capacita < 0)
+            throw new ValoriNegativiException();
+        
         this.capacita = capacita;
     }
 
