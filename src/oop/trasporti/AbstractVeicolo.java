@@ -29,32 +29,38 @@ public abstract class AbstractVeicolo implements Veicolo {
     protected double volumeSerbatoio;
 
     public AbstractVeicolo(int cilindrata, Carburante carburante, double volumeSerbatoio) {
-        this.cilindrata = cilindrata;
-        this.carburante = carburante;
-        this.volumeSerbatoio = volumeSerbatoio;
+        setCilindrata(cilindrata);
+        setCarburante(carburante);
+        setVolumeSerbatoio(volumeSerbatoio);
     }
 
-    public int getCilindrata() {
+    public final int getCilindrata() {
         return cilindrata;
     }
 
-    public void setCilindrata(int cilindrata) {
+    public final void setCilindrata(int cilindrata) {
+        if(cilindrata < 0)
+            throw new ValoriNegativiException();
+        
         this.cilindrata = cilindrata;
     }
 
-    public Carburante getCarburante() {
+    public final Carburante getCarburante() {
         return carburante;
     }
 
-    public void setCarburante(Carburante carburante) {
+    public final void setCarburante(Carburante carburante) {
         this.carburante = carburante;
     }
 
-    public double getVolumeSerbatoio() {
+    public final double getVolumeSerbatoio() {
         return volumeSerbatoio;
     }
 
-    public void setVolumeSerbatoio(double volumeSerbatoio) {
+    public final void setVolumeSerbatoio(double volumeSerbatoio) {
+        if(volumeSerbatoio < 0)
+            throw new ValoriNegativiException();
+        
         this.volumeSerbatoio = volumeSerbatoio;
     }
 
