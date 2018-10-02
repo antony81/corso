@@ -59,12 +59,18 @@ public abstract class AbstractVeicolo implements Veicolo {
     }
 
     @Override
+    public int velocitaMedia() {
+        return velocitaMax() / 2;
+    }
+
+    @Override
+    public double energiaCinetica() {
+        return 0.5 * peso() * Math.pow(velocitaMedia(), 2);
+    }
+
+    @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + this.cilindrata;
-        hash = 97 * hash + Objects.hashCode(this.carburante);
-        
-        return hash;
+        return Objects.hash(cilindrata, carburante, volumeSerbatoio);
     }
 
     @Override
@@ -82,7 +88,9 @@ public abstract class AbstractVeicolo implements Veicolo {
         if (this.cilindrata != av.cilindrata) {
             return false;
         }
-        
+        if (Double.doubleToLongBits(this.volumeSerbatoio) != Double.doubleToLongBits(av.volumeSerbatoio)) {
+            return false;
+        }
         return this.carburante == av.carburante;
     }
 
