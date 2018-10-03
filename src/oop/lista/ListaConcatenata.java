@@ -169,8 +169,12 @@ public class ListaConcatenata<E> {
     }
     
     public boolean remove(E element) {
-        boolean trovato = false;
+        if(inizio.info.equals(element)) {
+            removeFirst();
+            return true;
+        }
         
+        boolean trovato = false;
         Nodo<E> precedente = inizio;
         Nodo<E> corrente = precedente.next;
         while(!trovato && corrente != null) {
