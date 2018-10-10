@@ -49,6 +49,7 @@ public final class LoggerFactory {
             FileHandler fileHandler = new FileHandler(builder.toString(), true);
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
+            logger.log(Level.INFO, "start logger");
         } catch (SecurityException | IOException ex) {
             logger.log(Level.SEVERE, "Errore accesso al disco per l'handler\n", ex);
         }
