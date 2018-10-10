@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oop.util.LoggerFactory;
+import oop.util.NumberUtil;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Razionale implements Comparable<Razionale> {
     private final static Logger LOGGER = LoggerFactory.getLogger(Razionale.class); // creazione di un logger
     
     /**
-     * Metodo costruttore di default che inizializza a zero un razionale.
+     * Metodo costruttore di default che istanzia un razionale con valore 0.
      */
     public Razionale() {
         this.numeratore = 0;
@@ -49,6 +50,10 @@ public class Razionale implements Comparable<Razionale> {
     }
     
     /**
+     * Metodo costruttore che istanzia un razionale con valori dati in input
+     * al metodo. Un razionale non può essere costruito con un denominatore
+     * che valga 0, pertanto il metodo lancia la checked exception
+     * DenominatoreNulloException.
      * 
      * @param numeratore - il numeratore del razionale
      * @param denominatore - il denominatore del razionale
@@ -58,12 +63,12 @@ public class Razionale implements Comparable<Razionale> {
         if(denominatore == 0)
             throw new DenominatoreNulloException();
         
-        int mcd = mcd(Math.abs(numeratore), Math.abs(denominatore)); // calcolo del massimo comun divisore usado un metodo ricorsivo
+        int mcd = NumberUtil.massimoComunDivisore(numeratore, denominatore);
         
         this.numeratore = numeratore/mcd;
         this.denominatore = denominatore/mcd;
         
-        if(this.denominatore < 0) {
+        if(denominatore < 0) {
             this.numeratore *= -1;
             this.denominatore *= -1;
         }
@@ -71,14 +76,17 @@ public class Razionale implements Comparable<Razionale> {
         count++;
     }
     
-    /* Metodo privato che usa la ricorsione per calcolare, sfruttando
-    l'algoritmo di Euclide, il massimo comun divisore.
-    */
-    private int mcd(int num, int den) {
-        if(den == 0)
-            return num;
+    /**
+     * Metodo costruttore che istanzia un razionale con gli stessi valori
+     * di un razionale passato come parametro
+     *
+     * @param r - il razionale da cui copiare i valori
+     */
+    public Razionale(Razionale r) {
+        numeratore = r.numeratore;
+        denominatore = r.denominatore;
         
-        return mcd(den, num%den);
+        count++;
     }
     
     /**
@@ -98,7 +106,7 @@ public class Razionale implements Comparable<Razionale> {
      * Metodo mutatore che accetta come parametro il nuovo numeratore.
      */
     public void setNumeratore(int numeratore) {
-        int mcd = mcd(Math.abs(numeratore), Math.abs(this.denominatore));
+        int mcd = NumberUtil.massimoComunDivisore(numeratore, denominatore);
         
         this.numeratore = numeratore/mcd;
         this.denominatore /= mcd;
@@ -125,12 +133,12 @@ public class Razionale implements Comparable<Razionale> {
         if(denominatore == 0)
             throw new DenominatoreNulloException();
         
-        int mcd = mcd(Math.abs(this.numeratore), Math.abs(denominatore));
+        int mcd = NumberUtil.massimoComunDivisore(numeratore, denominatore);
         
         this.numeratore /= mcd;
         this.denominatore = denominatore/mcd;
         
-        if(this.denominatore < 0) {
+        if(denominatore < 0) {
             this.numeratore *= -1;
             this.denominatore *= -1;
         }
@@ -318,7 +326,7 @@ public class Razionale implements Comparable<Razionale> {
         if(r == null)
             return 1;
         
-        int mcd = mcd(denominatore, r.denominatore);
+        int mcd = NumberUtil.massimoComunDivisore(denominatore, r.denominatore);
         int mcm = (denominatore*r.denominatore)/mcd;
         int n1 = (mcm/denominatore)*numeratore;
         int n2 = (mcm/r.denominatore)*r.numeratore;
