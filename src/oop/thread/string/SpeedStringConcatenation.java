@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Consultant
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Consultant
+ * @author Antonio
  */
 public class SpeedStringConcatenation implements Runnable {
 
@@ -38,19 +38,20 @@ public class SpeedStringConcatenation implements Runnable {
         t2.start();
         t3.start();
         
-        
-        for(int i = 1; t1.isAlive() || t2.isAlive() || t3.isAlive(); i++) {
-            /*if(i == 1)
-                System.out.print("progress");
-            if(i % 100 == 0)
-                System.out.println();
-            System.out.print(".");*/
+        /*for(int i = 1; t1.isAlive() || t2.isAlive() || t3.isAlive(); i++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(SpeedStringConcatenation.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println(i + "s");
+        }*/
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SpeedStringConcatenation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         System.out.println();

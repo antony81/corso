@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Consultant
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@ package oop.thread.string;
 
 /**
  *
- * @author Consultant
+ * @author Antonio
  */
 public class StringBufferProc implements Runnable {
     
@@ -49,7 +49,7 @@ public class StringBufferProc implements Runnable {
         str = s.toString();
         
         long end = System.currentTimeMillis();
-        time = end - start;
+        time = end-start;
         System.out.println("end test for StringBuffer");
     }
     
