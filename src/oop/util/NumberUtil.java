@@ -126,4 +126,32 @@ public final class NumberUtil {
         return mcd(y, x%y);
     }
     
+    /**
+     * Metodo che calcola, col teorema di Pitagora, l'ipotenusa di un triangolo
+     * rettangolo che ha come cateti x e y.
+     * 
+     * @param x - il cateto x
+     * @param y - il cateto y
+     * @return l'ipoteusa calcolata dati i cateti x e y
+     */
+    public static double teoremaPitagoraIpotenusa(double x, double y) {
+        return Math.sqrt(Math.pow(Math.abs(x), 2)+Math.pow(Math.abs(y), 2));
+    }
+    
+    /**
+     * Metodo che calcola, col teorema di Pitagora, un cateto di un triangolo
+     * rettangolo che ha come ipotenusa x e l'altro cateto y (il metodo inverte
+     * x con y se x minore di y).
+     * 
+     * @param x - il cateto x
+     * @param y - il cateto y
+     * @return l'ipoteusa calcolata dati i cateti x e y
+     */
+    public static double teoremaPitagoraCateto(double x, double y) {
+        if(x < y)
+            return Math.sqrt(Math.pow(Math.abs(y), 2)-Math.pow(Math.abs(x), 2));
+        
+        return Math.sqrt(Math.pow(Math.abs(x), 2)-Math.pow(Math.abs(y), 2));
+    }
+    
 }
