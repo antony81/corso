@@ -18,7 +18,6 @@ package oop.util;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -85,7 +84,7 @@ public final class NumberUtil {
         if(numero == 1 || numero == 0)
             return 1;
         
-        return numero * fattoriale(numero - 1);
+        return numero * fattoriale(numero-1);
     }
     
     /**
