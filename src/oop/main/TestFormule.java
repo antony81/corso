@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Antonio
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,28 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package oop.thread;
+package oop.main;
 
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigInteger;
+import oop.matematica.Formule;
 
 /**
  *
  * @author Antonio
  */
-public class Processo4 implements Runnable {
+public class TestFormule {
 
-    @Override
-    public void run() {
-        for (int i = 1; i <= 10; i++) {
-            System.out.println("Processo4 lanciato " + i + " volte");
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Processo1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        BigInteger numero = BigInteger.valueOf(50);
+        System.out.println("fattoriale di " + numero + " = " + Formule.fattoriale(numero));
+        System.out.println("**************************************************************");
+        BigInteger count = BigInteger.valueOf(20);
+        System.out.println("fibonacci di " + count + " = " + Formule.fibonacci(count));
     }
     
 }

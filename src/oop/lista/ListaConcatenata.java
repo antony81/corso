@@ -192,6 +192,9 @@ public class ListaConcatenata<E> {
     }
     
     public E removeFirst() {
+        if(isEmpty())
+            throw new NessunElementoException();
+        
         Nodo<E> corrente = inizio.next;
         E old = inizio.info;
         inizio.next = null;
@@ -202,6 +205,9 @@ public class ListaConcatenata<E> {
     }
     
     public E removeLast() {
+        if(isEmpty())
+            throw new NessunElementoException();
+        
         Nodo<E> precedente = findNodo(size-2);
         E old = fine.info;
         fine = precedente;

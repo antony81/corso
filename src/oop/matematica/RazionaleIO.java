@@ -28,6 +28,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Classe che offre dei metodi per salvare e caricare da un file lo stato
+ * interno di un razionale, facendo uso della classe DataOutputStream per
+ * salvare i due interi (numeratore e denominatore) e DataInputStream per
+ * caricarli.
  *
  * @author Antonio
  */

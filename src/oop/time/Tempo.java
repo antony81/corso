@@ -20,6 +20,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  *
@@ -35,6 +36,8 @@ public interface Tempo {
     void setData(int anno, int mese, int giorno);
     
     void setDataTempo(int anno, int mese, int giorno, int ore, int minuti, int secondi);
+    
+    Date getDate();
     
     LocalDateTime getLocalDateTime();
     

@@ -17,6 +17,7 @@
 package oop.main;
 
 import static java.lang.System.out;
+import java.util.EnumSet;
 import oop.util.Elemento;
 
 /**
@@ -33,22 +34,22 @@ public class TestEnumElemento {
         out.println("---------------------------------------------------------------------");
         
         // usiamo il metodo printf per stampare
-        Elemento[] arr = Elemento.values();
-        out.printf("%s\t|      %s|\t     %s|\t%s%n", "simbolo", "num. atomico", "massa atomica", "nome");
+        EnumSet<Elemento> set = EnumSet.allOf(Elemento.class);
+        out.printf("%s\t|      %s|\t     %s|\t%s%n", "SIMBOLO", "NUM. ATOMICO ", "MASSA ATOMICA ", "NOME");
         out.println("---------------------------------------------------------------------");
-        for(Elemento e : arr) {
+        for(Elemento e : set) {
             if(e.getNumeroAtomico() < 10 && e.getMassaAtomica() < 10)
-                out.printf("%s\t|\t\t  %d|\t\t  %f|\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
+                out.printf("%s\t|\t\t  %d |\t\t  %f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() < 10 && e.getMassaAtomica() >= 10 && e.getMassaAtomica() < 100)
-                out.printf("%s\t|\t\t  %d|\t\t %f|\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
+                out.printf("%s\t|\t\t  %d |\t\t %f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() >= 10 && e.getNumeroAtomico() < 100 && e.getMassaAtomica() < 10)
-                out.printf("%s\t|\t\t %d|\t\t  %f|\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
+                out.printf("%s\t|\t\t %d |\t\t  %f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() >= 10 && e.getNumeroAtomico() < 100 && e.getMassaAtomica() >= 10 && e.getMassaAtomica() < 100)
-                out.printf("%s\t|\t\t %d|\t\t %f|\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
+                out.printf("%s\t|\t\t %d |\t\t %f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() >= 10 && e.getNumeroAtomico() < 100 && e.getMassaAtomica() >= 100 && e.getMassaAtomica() < 1000)
-                out.printf("%s\t|\t\t %d|\t\t%f|\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
+                out.printf("%s\t|\t\t %d |\t\t%f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() >= 100 && e.getMassaAtomica() >= 100)
-                out.printf("%s\t|\t\t%d|\t\t%f|\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
+                out.printf("%s\t|\t\t%d |\t\t%f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
         }
         
         out.println("---------------------------------------------------------------------");

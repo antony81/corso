@@ -14,28 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package oop.thread;
-
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package oop.matematica;
 
 /**
+ * Classe che estende 'RuntimeException' per rappresentare una eccezione
+ * personalizzata (una 'Unchecked Exception'), la quale indica che un monomio
+ * non può essere sommato algebricamente ad un altro se gli esponenti
+ * non sono uguali.
  *
  * @author Antonio
+ * @see RuntimeException
  */
-public class Processo4 implements Runnable {
+public class MonomiNonSimiliException extends RuntimeException {
 
-    @Override
-    public void run() {
-        for (int i = 1; i <= 10; i++) {
-            System.out.println("Processo4 lanciato " + i + " volte");
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Processo1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    private static final long serialVersionUID = 2L;
+
+    /**
+     * Metodo costruttore di default
+     */
+    public MonomiNonSimiliException() {
     }
     
 }

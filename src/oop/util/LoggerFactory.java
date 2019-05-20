@@ -52,7 +52,7 @@ public final class LoggerFactory {
             logger.log(Level.INFO, "start logger");
         } catch (SecurityException | IOException ex) {
             logger.log(Level.SEVERE, "Errore accesso al disco per l'handler\n", ex);
-        }
+        }   
         
         return logger;
     }

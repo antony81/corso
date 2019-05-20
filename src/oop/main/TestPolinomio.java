@@ -19,9 +19,9 @@ package oop.main;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oop.matematica.DenominatoreNulloException;
-import oop.matematica.EsponenteException;
 import oop.matematica.Monomio;
-import oop.matematica.Polinomio;
+import oop.matematica.PolinomiPrototipi;
+import oop.matematica.PolinomioSecondoGrado;
 import oop.matematica.Razionale;
 
 /**
@@ -32,23 +32,24 @@ public class TestPolinomio {
     
     public static void main(String[] args) {
         try {
-            Razionale r1 = new Razionale(10, 4);
-            Razionale r2 = new Razionale(-22, 6);
-            Razionale r3 = new Razionale(1, -10);
+            Razionale r1 = new Razionale(0, 4);
+            Razionale r2 = new Razionale(-1, 3);
+            Razionale r3 = new Razionale(-2, 8);
             
             Monomio m1 = new Monomio(r1, 2);
             Monomio m2 = new Monomio(r2, 1);
             Monomio m3 = new Monomio(r3, 0);
+            Monomio m4 = new Monomio(r3, 1);
             
-            Polinomio p1 = new Polinomio();
-            p1.aggiungi(m2);
-            p1.aggiungi(m1);
-            p1.aggiungi(m3);
-            p1.ordina();
+            PolinomioSecondoGrado p1 = PolinomiPrototipi.getPolinomioSecondoGrado();
+            p1.add(m2);
+            p1.add(m1);
+            p1.add(m3);
+            p1.add(m4);
             
             System.out.println("polinomio: " + p1);
             System.out.println("soluzioni: " + p1.soluzione());
-        } catch (DenominatoreNulloException | EsponenteException ex) {
+        } catch (DenominatoreNulloException ex) {
             Logger.getLogger(TestPolinomio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

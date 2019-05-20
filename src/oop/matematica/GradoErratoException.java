@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Antonio
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,28 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package oop.thread;
-
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package oop.matematica;
 
 /**
+ * Classe che estende 'RuntimeException' per rappresentare una eccezione
+ * personalizzata (una 'Unchecked Exception'), la quale indica che un monomio
+ * non può essere addizionato al polinomio se esso supera il grado scelto
+ * in fase di creazione.
+ * Ad esempio un polinomio di secondo grado non può accettare monomi di grado
+ * superiore.
  *
  * @author Antonio
+ * @see RuntimeException
  */
-public class Processo4 implements Runnable {
+public class GradoErratoException extends RuntimeException {
 
-    @Override
-    public void run() {
-        for (int i = 1; i <= 10; i++) {
-            System.out.println("Processo4 lanciato " + i + " volte");
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Processo1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    private static final long serialVersionUID = 3L;
+
+    /**
+     * Metodo costruttore di default
+     */
+    public GradoErratoException() {
     }
     
 }

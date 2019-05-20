@@ -17,7 +17,7 @@
 package oop.matematica.geometria;
 
 import java.util.Objects;
-import oop.util.NumberUtil;
+import oop.matematica.Formule;
 
 /**
  * Classe che rappresenta la figura del triangolo
@@ -86,7 +86,7 @@ public class Triangolo implements Figura2D {
      */
     @Override
     public double perimetro() {
-        return 2D*NumberUtil.teoremaPitagoraIpotenusa(base/2, altezza)+base;
+        return 2D*Formule.teoremaPitagoraIpotenusa(base/2, altezza)+base;
     }
 
     /**

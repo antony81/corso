@@ -19,6 +19,7 @@ package oop.time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 /**
  *
@@ -29,11 +30,11 @@ import java.time.LocalTime;
  * Infatti i metodi di default possono essere sovrascritti opzionalmente,
  * quelli static, invece, non possono essere sovrascritti.
  */
-public class TempoImpl implements Tempo {
+public class TempoJava8 implements Tempo {
     
     private LocalDateTime data;
     
-    public TempoImpl() {
+    public TempoJava8() {
         data = LocalDateTime.now();
     }
 
@@ -56,6 +57,11 @@ public class TempoImpl implements Tempo {
         LocalDate nuovaData = LocalDate.of(giorno, mese, anno);
         LocalTime nuovoTempo = LocalTime.of(ore, minuti, secondi);
         data = LocalDateTime.of(nuovaData, nuovoTempo);
+    }
+
+    @Override
+    public Date getDate() {
+        return null;
     }
 
     @Override

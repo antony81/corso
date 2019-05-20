@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Antonio
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,21 +17,21 @@
 package oop.matematica;
 
 /**
+ * L'implementazione di questa interfaccia consente ad un polinomio di essere
+ * risolvibile potendo chiamare il metodo 'soluzione'
  *
  * @author Antonio
- * 
- * Classe che estende 'Exception' per rappresentare una eccezione personalizzata
- * (una 'Checked Exception'), la quale indica che un monomio non può essere
- * sommato algebricamente ad un altro se gli esponenti non sono uguali.
+ * @see PolinomioPrimoGrado
+ * @see PolinomioSecondoGrado
  */
-public class OperazioneNonValidaException extends Exception {
-
-    private static final long serialVersionUID = 1021720081686537629L;
-
+public interface PolinomioRisolvibile {
+    
     /**
-     * Metodo costruttore di default
+     * Metodo che ritorna una stringa che rappresenta la soluzione di un
+     * polinomio risolvibile.
+     * 
+     * @return la soluzione del polinomio risolvibile
      */
-    public OperazioneNonValidaException() {
-    }
+    String soluzione();
     
 }

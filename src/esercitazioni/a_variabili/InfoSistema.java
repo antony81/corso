@@ -16,6 +16,8 @@
  */
 package esercitazioni.a_variabili;
 
+import java.util.Properties;
+
 /**
  * Classe che, con l'ausilio della classe System (classe della libreria standard
  * di Java), ricava e stampa le proprietà del sistema operativo su cui viene
@@ -41,12 +43,23 @@ public class InfoSistema {
         System.out.println("user.home = " + System.getProperty("user.home") );
         System.out.println("user.name = " + System.getProperty("user.name") );
     }
+
+    private static void stampaTutteLeInfo() {
+        Properties properties = System.getProperties();
+        properties.keySet().forEach((key) -> {
+            System.out.println(key + " = " + properties.get(key));
+        });
+    }
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         stampaInfo();
+        System.out.println();
+        System.out.println("------------------------------------------");
+        System.out.println();
+        stampaTutteLeInfo();
     }
     
 }

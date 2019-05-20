@@ -45,41 +45,40 @@ public class Banca {
     }
     
     /**
-     * 
-     * @param capacity - la capacità iniziale della banca
-     * 
      * Costruttore responsabile alla creazione di un oggetto di tipo Banca in
      * cui viene inizializzato l'array con dimensione pari alla capacità passata
-     * come parametro al metodo.
+     * 
+     * @param capacity - la capacità iniziale della banca
      */
     public Banca(int capacity) {
+        if(capacity < 0)
+            throw new IllegalArgumentException();
+        
         conti = new ContoBancario[capacity];
         size = 0;
         this.capacity = capacity;
     }
     
     /**
-     * 
-     * @param cb - l'oggetto da inserire in banca
-     * 
      * Metodo in overloading che richiama l'altro metodo 'add' passando come
      * 'index' la variabile d'istanza 'size' e l'oggetto 'cb'. In sostanza
      * questo metodo inserisce l'oggetto 'cb' in coda all'array.
+     * 
+     * @param cb - l'oggetto da inserire in banca
      */
     public void add(ContoBancario cb) {
         add(size, cb);
     }
     
     /**
-     * 
-     * @param index - l'indice in cui inserire l'oggetto cb
-     * @param cb - l'oggetto da inserire in banca
-     * 
      * Questo metodo ha il compito di inserire un oggetto di tipo ContoBancario
      * alla posizione 'index' passata come parametro. Inoltre il metodo è in
      * grado di aumentare la dimensione dell'array qualora fosse saturo.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto.
+     * 
+     * @param index - l'indice in cui inserire l'oggetto cb
+     * @param cb - l'oggetto da inserire in banca
      */
     public void add(int index, ContoBancario cb) {
         if(index < 0 || index > size)
@@ -100,14 +99,13 @@ public class Banca {
     }
     
     /**
-     * 
-     * @param index - l'indice da cui poter leggere un oggetto di tipo ContoBancario
-     * @return un oggetto di tipo ContoBancario
-     * 
      * Questo metodo permette di leggere un oggetto di tipo ContoBancario dato
      * un indice valido.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto.
+     * 
+     * @param index - l'indice da cui poter leggere un oggetto di tipo ContoBancario
+     * @return un oggetto di tipo ContoBancario
      */
     public ContoBancario get(int index) {
         if(index < 0 || index >= size)
@@ -117,16 +115,15 @@ public class Banca {
     }
     
     /**
-     * 
-     * @param index - l'indice su cui aggiornare un oggetto di tipo ContoBancario
-     * @param cb - l'oggetto di tipo ContoBancario
-     * @return l'oggetto presente prima dell'aggiornamento
-     * 
      * Metodo che sostituisce un oggetto di tipo ContoBancario in una
      * determinata posizione data dal parametro 'index'.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto e restituisce l'oggetto che c'era prima
      * dell'aggiornamento.
+     * 
+     * @param index - l'indice su cui aggiornare un oggetto di tipo ContoBancario
+     * @param cb - l'oggetto di tipo ContoBancario
+     * @return l'oggetto presente prima dell'aggiornamento
      */
     public ContoBancario set(int index, ContoBancario cb) {
         if(index < 0 || index >= size)
@@ -139,14 +136,13 @@ public class Banca {
     }
     
     /**
-     * 
-     * @param index - l'indice dell'oggetto da rimuovere
-     * @return l'oggetto rimosso
-     * 
      * Metodo che rimuove un oggetto di tipo ContoBancario ad un determinato
      * indice.
      * Il metodo lancia un eccezione (IndexOutOfBoundsException) se l'indice
      * non rientra in un range corretto e restituisce l'oggetto rimosso.
+     * 
+     * @param index - l'indice dell'oggetto da rimuovere
+     * @return l'oggetto rimosso
      */
     public ContoBancario remove(int index) {
         if(index < 0 || index >= size)
@@ -156,19 +152,19 @@ public class Banca {
         
         for(int i = (index+1); i < size; i++)
             conti[i-1] = conti[i];
+        conti[size-1] = null;
         size--;
         
         return old;
     }
     
     /**
-     * 
-     * @param cb - l'oggetto da rimuovere
-     * @return true se l'oggetto è presente e quindi si può rimuovere, false altrimenti
-     * 
      * Metodo che rimuove l'oggetto 'cb' passato come parametro se è presente.
      * Se l'oggetto c'è il metodo lo rimuove e ritorna true. Se l'oggetto non
      * c'è ritorna false.
+     * 
+     * @param cb - l'oggetto da rimuovere
+     * @return true se l'oggetto è presente e quindi si può rimuovere, false altrimenti
      */
     public boolean remove(ContoBancario cb) {
         int index = indexOf(cb);
@@ -181,12 +177,11 @@ public class Banca {
     }
     
     /**
+     * Metodo che ritorna l'indice di appartenenza dell'oggetto 'cb' se c'è.
+     * Se l'oggetto passato non c'è ritorna -1.
      * 
      * @param cb - l'oggetto di tipo ContoBancario da cercare
      * @return l'indice di appartenenza dell'oggetto passato
-     * 
-     * Metodo che ritorna l'indice di appartenenza dell'oggetto 'cb' se c'è.
-     * Se l'oggetto passato non c'è ritorna -1.
      */
     public int indexOf(ContoBancario cb) {
         int index = -1;
@@ -199,33 +194,30 @@ public class Banca {
     }
     
     /**
+     * Metodo che cerca un oggetto di tipo ContoBancario nella banca e se è
+     * presente ritorna true. Se l'oggetto non c'è ritorna false.
      * 
      * @param cb - l'oggetto da cercare
      * @return true se l'oggetto è presente, false altrimenti
-     * 
-     * Metodo che cerca un oggetto di tipo ContoBancario nella banca e se è
-     * presente ritorna true. Se l'oggetto non c'è ritorna false.
      */
     public boolean contains(ContoBancario cb) {
         return indexOf(cb) != -1;
     }
     
     /**
+     * Metodo che ritorna la quantità di conti bancari presenti in banca.
      * 
      * @return il numero di conti presenti in banca
-     * 
-     * Metodo che ritorna la quantità di conti bancari presenti in banca.
      */
     public int size() {
         return size;
     }
     
     /**
-     * 
-     * @return true se la banca non ha conti, false se la banca ha almeno un conto
-     * 
      * Metodo che ritorna true se nella banca non è presente alcun conto.
      * Se invece nella banca è presente almeno un conto il metodo ritorna false.
+     * 
+     * @return true se la banca non ha conti, false se la banca ha almeno un conto
      */
     public boolean isEmpty() {
         return size == 0;
@@ -236,22 +228,22 @@ public class Banca {
      * banca dove tutti i conti vengono eliminati.
      */
     public void clear() {
-        conti = new ContoBancario[capacity];
+        for(int i = 0; i < size; i++)
+            conti[i] = null;
         size = 0;
     }
     
     /**
-     * 
-     * @return la stringa che rappresenta un oggetto di tipo Banca
-     * 
      * Sovrascrittura del metodo 'toString' in modo che possa rappresentare un
      * oggetto di tipo Banca. In pratica la stringa elenca la lista dei conti
      * presenti in banca.
+     * 
+     * @return la stringa che rappresenta un oggetto di tipo Banca
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("lista dei conti\n\n");
+        builder.append("lista dei conti:\n\n");
         if(size == 0)
             builder.append("nessun conto presente");
         else

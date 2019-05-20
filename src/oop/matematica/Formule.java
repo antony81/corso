@@ -14,7 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package oop.util;
+package oop.matematica;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -26,13 +30,13 @@ import java.util.List;
  *
  * @author Antonio
  */
-public final class NumberUtil {
+public final class Formule {
     
     /*
      * Costruttore privato che evita la creazione di oggetti di tipo
-     * NumberUtil.
+     * Formule.
      */
-    private NumberUtil() {
+    private Formule() {
     }
     
     /**
@@ -81,10 +85,11 @@ public final class NumberUtil {
      * @return il valore calcolato del fattoriale
      */
     public static long fattoriale(long numero) {
+        assert numero >= 0 : "il fattoriale non si può calcolare con numeri negativi";
         if(numero == 1 || numero == 0)
             return 1;
         
-        return numero * fattoriale(numero-1);
+        return numero*fattoriale(numero-1);
     }
     
     /**
@@ -96,6 +101,7 @@ public final class NumberUtil {
      * @return il valore calcolato del fattoriale
      */
     public static BigInteger fattoriale(BigInteger numero) {
+        assert numero.signum() >= 0 : "il fattoriale non si può calcolare con numeri negativi";
         if(numero.equals(BigInteger.ONE) || numero.equals(BigInteger.ZERO))
             return BigInteger.ONE;
         
@@ -112,7 +118,7 @@ public final class NumberUtil {
      * @return il massimo comun divisore calcolato
      */
     public static int massimoComunDivisore(int x, int y) {
-        return mcd(Math.abs(x), Math.abs(y));
+        return mcd(abs(x), abs(y));
     }
     
     /**
@@ -134,7 +140,7 @@ public final class NumberUtil {
      * @return l'ipoteusa calcolata dati i cateti x e y
      */
     public static double teoremaPitagoraIpotenusa(double x, double y) {
-        return Math.sqrt(Math.pow(Math.abs(x), 2)+Math.pow(Math.abs(y), 2));
+        return sqrt(pow(abs(x), 2)+pow(abs(y), 2));
     }
     
     /**
@@ -147,10 +153,7 @@ public final class NumberUtil {
      * @return l'ipoteusa calcolata dati i cateti x e y
      */
     public static double teoremaPitagoraCateto(double x, double y) {
-        if(x < y)
-            return Math.sqrt(Math.pow(Math.abs(y), 2)-Math.pow(Math.abs(x), 2));
-        
-        return Math.sqrt(Math.pow(Math.abs(x), 2)-Math.pow(Math.abs(y), 2));
+        return sqrt(abs(pow(abs(x), 2)-pow(abs(y), 2)));
     }
     
 }

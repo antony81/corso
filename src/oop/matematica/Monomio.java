@@ -1,204 +1,227 @@
 /*
-* Copyright (C) 2017 Antonio
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2019 Antonio
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package oop.matematica;
 
 import java.util.Objects;
 
 /**
- *
- * @author Antonio
- * 
  * Classe che rappresenta un Monomio nel quale il coefficiente sarà un oggetto
- * di tipo Razionale, mentre la parte letterale sarà identificata soltanto con
- * un esponente intero (assumiamo 'x' come lettera del monomio).
+ * di tipo Razionale, mentre la parte letterale sarà identificata semplicemente
+ * con un esponente intero (si assume 'x' come lettera del monomio).
+ * 
+ * @author Antonio
  */
-public class Monomio implements Comparable<Monomio> {
+public class Monomio implements Cloneable, Comparable<Monomio> {
     
-    private Razionale coefficiente; // variabile d'instanza
-    private int esponente; // variabile d'instanza
+    /**
+     * variabile statica utile a contare quanti monomi saranno creati.
+     */
+    private static int count = 0;
     
-    private static int count = 0; // variabile statica utile a contare quanti monomi saranno creati
+    /**
+     * variabili d'instanza.s
+     */
+    private Razionale coeff;
+    private int exp;
 
     /**
-     * Costruttore di default che crea monomi con coefficiente zero ed esponente
-     * uno.
+     * Costruttore di default che permette di creare un oggetto di tipo Monomio
+     * con coefficiente pari a zero ed esponente pari a uno.
      */
     public Monomio() {
         this(new Razionale(), 1);
     }
 
     /**
+     * Costruttore parametrizzato che permette di creare un oggetto di tipo
+     * Monomio dato un razionale ed un intero, che saranno rispettivamente il
+     * coefficiente e l'esponente.
      * 
-     * @param coefficiente - il razionale che rappresenta il coefficiente
-     * @param esponente - l'intero che rappresenta l'esponente
-     * 
-     * Costruttore che crea un monomio a partire da un razionale ed un intero,
-     * passati come parametri, che saranno rispettivamente il coefficiente e
-     * l'esponente.
+     * @param coeff - il razionale che rappresenta il coefficiente
+     * @param exp - l'intero che rappresenta l'esponente
      */
-    public Monomio(Razionale coefficiente, int esponente) {
-        this.coefficiente = coefficiente;
-        this.esponente = esponente;
+    public Monomio(Razionale coeff, int exp) {
+        this.coeff = coeff;
+        this.exp = exp;
         
         count++;
     }
     
     /**
+     * Costruttore parametrizzato che permette di creare un oggetto di tipo
+     * Monomio dato un numeratore e un denominatore, che saranno usati per
+     * creare il coefficiente, e l'esponente.
+     * Il metodo lancia la checked exception DenominatoreNulloException se il
+     * denominatore passato è 0.
      * 
      * @param numeratore - il numeratore del coefficiente del monomio
      * @param denominatore - il denominatore del coefficiente del monomio
-     * @param esponente - l'esponente del monomio
-     * @throws DenominatoreNulloException - se il denominatore del coefficiente è uguale a zero
-     * 
-     * Costruttore che crea un monomio passando come parametri un numeratore e
-     * un denominatore che saranno usati per creare il razionale coefficiente e
-     * inoltre un esponente che rappresenterà appunto l'esponente del monomio.
+     * @param exp - l'esponente del monomio
+     * @throws DenominatoreNulloException se il denominatore del coefficiente è uguale a zero
      */
-    public Monomio(int numeratore, int denominatore, int esponente) throws DenominatoreNulloException {
-        this(new Razionale(numeratore, denominatore), esponente);
+    public Monomio(int numeratore, int denominatore, int exp) throws DenominatoreNulloException {
+        this(new Razionale(numeratore, denominatore), exp);
     }
 
     /**
+     * Metodo statico che ritorna il numero complessivo dei monomi creati.
+     * 
+     * @return il numero di monomi creati
+     */
+    public static int getCount() {
+        return count;
+    }
+
+    /**
+     * Metodo accessorio per leggere il coefficiente di un monomio.
      * 
      * @return il coefficiente del monomio
-     * 
-     * Metodo accessorio per leggere il coefficiente di un monomio.
      */
-    public Razionale getCoefficiente() {
-        return coefficiente;
+    public Razionale getCoeff() {
+        return coeff;
     }
 
     /**
+     * Metodo mutatore per cambiare il coefficiente ad un monomio.
      * 
-     * @param coefficiente - il coefficiente del monomio
-     * 
-     * Metodo mutatore per cambiare il coefficiente ad un monomio
+     * @param coeff - il coefficiente del monomio
      */
-    public void setCoefficiente(Razionale coefficiente) {
-        this.coefficiente = coefficiente;
+    public void setCoeff(Razionale coeff) {
+        this.coeff = coeff;
     }
     
     /**
+     * Metodo accessorio per leggere l'esponente di un monomio.
      * 
      * @return l'esponente del monomio
-     * 
-     * Metodo accessorio per leggere l'esponente di un monomio.
      */
-    public int getEsponente() {
-        return esponente;
+    public int getExp() {
+        return exp;
     }
 
     /**
+     * Metodo mutatore per cambiare l'esponente ad un monomio.
      * 
-     * @param esponente - l'esponente del monomio
-     * 
-     * Metodo mutatore per cambiare l'esponente ad un monomio
+     * @param exp - l'esponente del monomio
      */
-    public void setEsponente(int esponente) {
-        this.esponente = esponente;
+    public void setExp(int exp) {
+        this.exp = exp;
     }
     
     /**
-     * 
-     * @param m - moonomio da sommare
-     * @return un nuovo monomio che sarà la somma tra 'this' e 'm'
-     * @throws OperazioneNonValidaException se gli esponenti non sono uguali
-     * 
      * Metodo che permette di sommare due monomi se gli esponenti sono uguali
      * tra di loro.
-     * Il metodo lancia l'eccezione OperazioneNonValida se gli esponenti non
-     * sono uguali tra di loro.
+     * Il metodo lancia la unchecked exception MonomiNonSimiliException se i
+     * monomi non sono simili tra loro ('this' e 'm') e quindi non sommabili.
+     * 
+     * @param m - il monomio da sommare
+     * @return un nuovo monomio che sarà la somma tra 'this' e 'm'
+     * @throws NullPointerException se 'm' è null
+     * @throws MonomiNonSimiliException se gli esponenti non sono simili
      */
-    public Monomio somma(Monomio m) throws OperazioneNonValidaException {
-        if(esponente != m.esponente)
-            throw new OperazioneNonValidaException();
-        
-        Razionale somma = coefficiente.addizione(m.coefficiente);
-        
-        return new Monomio(somma, esponente);
+    public Monomio addizione(Monomio m) {
+        if(exp != m.exp)
+            throw new MonomiNonSimiliException();
+                
+        return new Monomio(coeff.addizione(m.coeff), exp);
     }
+    
     /**
-     * 
-     * @param m - moonomio da sottrarre
-     * @return un nuovo monomio 'm' che sarà sottratto a 'this'
-     * @throws OperazioneNonValidaException se gli esponenti non sono uguali
-     * 
      * Metodo che permette di effettuare la sottrazione tra due monomi se gli
      * esponenti sono uguali tra di loro.
-     * Il metodo lancia l'eccezione OperazioneNonValida se gli esponenti non
-     * sono uguali tra di loro.
+     * Il metodo lancia la unchecked exception MonomiNonSimiliException se i
+     * monomi non sono simili tra loro ('this' e 'm') e quindi non sottraibili.
+     * 
+     * @param m - il monomio da sottrarre
+     * @return un nuovo monomio che sarà la differenza a 'this' e 'm'
+     * @throws NullPointerException se 'm' è null
+     * @throws MonomiNonSimiliException se gli esponenti non sono simili
      */
-    public Monomio differenza(Monomio m) throws OperazioneNonValidaException {
-        if(esponente != m.esponente)
-            throw new OperazioneNonValidaException();
-        
-        Razionale differenza = coefficiente.sottrazione(m.coefficiente);
-        
-        return new Monomio(differenza, esponente);
+    public Monomio sottrazione(Monomio m) {
+        if(exp != m.exp)
+            throw new MonomiNonSimiliException();
+                
+        return new Monomio(coeff.sottrazione(m.coeff), exp);
     }
     
     /**
-     * 
-     * @param m - moonomio da moltiplicare
-     * @return un nuovo monomio che sarà il prodotto tra 'this' e 'm'
-     * 
      * Metodo che permette di moltiplicare due monomi tra di loro.
+     * 
+     * @param m - il monomio da moltiplicare
+     * @return un nuovo monomio che sarà il prodotto tra 'this' e 'm'
+     * @throws NullPointerException se 'm' è null
      */
-    public Monomio prodotto(Monomio m) {
-        Razionale prodotto = coefficiente.moltiplicazione(m.coefficiente);
-        int newEsp = esponente+m.esponente;
-        
-        return new Monomio(prodotto, newEsp);
+    public Monomio moltiplicazione(Monomio m) {
+        return new Monomio(coeff.moltiplicazione(m.coeff), exp+m.exp);
     }
     
     /**
-     * 
-     * @param m - moonomio con cui effettuare la divisione
-     * @return un nuovo monomio che sarà la divisione tra 'this' e 'm'
-     * 
      * Metodo che permette di effettuare la divisione tra due monomi.
+     * 
+     * @param m - il monomio divisore
+     * @return un nuovo monomio che sarà la divisione tra 'this' e 'm'
+     * @throws NullPointerException se 'm' è null
+     * @throws ArithmeticException se il grado di 'this' è minore del grado di 'm'
      */
     public Monomio divisione(Monomio m) {
-        Razionale divisione = coefficiente.divisione(m.coefficiente);
-        int newEsp = esponente-m.esponente;
+        if(exp < m.exp)
+            throw new ArithmeticException("errore! divisione non possibile!");
         
-        return new Monomio(divisione, newEsp);
+        return new Monomio(coeff.divisione(m.coeff), exp-m.exp);
     }
 
     /**
+     * Metodo che ritorna una copia dell'istanza 'this' di Monomio. Il metodo
+     * clona anche il coefficiente (copia profonda dell'oggetto).
      * 
-     * @return il codice hash di un oggetto
+     * @return un clone dell'istanza 'this' di Monomio
+     */
+    @Override
+    public Monomio clone() {
+        Monomio m = null;
+        try {
+            m = (Monomio) super.clone();
+            m.coeff = m.coeff.clone();
+        } catch (CloneNotSupportedException ex) {
+            // l'eccezione non si verifica perché Razionale è di tipo Cloneable
+            throw new InternalError(ex);
+        }
+        
+        return m;
+    }
+
+    /**
+     * Override del metodo 'hashCode' per calcolare il codice hash di un
+     * oggetto di tipo 'Monomio'.
      * 
-     * Override del metodo per calcolare il codice hash di un oggetto di
-     * tipo 'Monomio'.
+     * @return il codice hash di 'this'
      */
     @Override
     public int hashCode() {
-        return Objects.hash(coefficiente, esponente);
+        return Objects.hash(coeff, exp);
     }
 
     /**
+     * Override del metodo 'equals' per permettere il confronto tra due oggetti
+     * di tipo 'Monomio'. Due oggetti di questo tipo saranno uguali se il
+     * coefficiente e l'esponente sono uguali.
      * 
      * @param obj - l'oggetto da passare come parametro per confrontarlo con il 'this'
      * @return true se gli oggetti sono uguali, false altrimenti
-     * 
-     * Implementazione del metodo 'equals' per permettere il confronto tra due
-     * oggetti di tipo 'Monomio'. Due oggetti di questo tipo saranno
-     * uguali se il coefficiente e l'esponente sono uguali.
      */
     @Override
     public boolean equals(Object obj) {
@@ -213,66 +236,55 @@ public class Monomio implements Comparable<Monomio> {
         }
         final Monomio m = (Monomio) obj;
         
-        return (coefficiente.equals(m.coefficiente)) && (esponente == m.esponente);
+        return (coeff.equals(m.coeff)) && (exp == m.exp);
     }
 
     /**
+     * Override del metodo 'toString' che ritorna la rappresentazione sotto
+     * forma di stringa di un monomio.
      * 
      * @return la stringa per rappresentare l'oggetto
-     * 
-     * Implementazione del metodo 'toString' che genera una stringa che
-     * rappresenterà l'oggetto.
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         
-        if(coefficiente.getNumeratore() == 0)
+        if(coeff.getNumeratore() == 0)
             builder.append('0');
-        else if(esponente == 0)
-            builder.append(coefficiente);
-        else if(esponente == 1)
-            if(coefficiente.getNumeratore() == 1 && coefficiente.getDenominatore() == 1)
+        else if(exp == 0)
+            builder.append(coeff);
+        else if(exp == 1)
+            if(coeff.getNumeratore() == 1 && coeff.getDenominatore() == 1)
                 builder.append('x');
             else
-                builder.append(coefficiente).append('x');
+                builder.append(coeff).append('x');
         else
-            if(coefficiente.getNumeratore() == 1 && coefficiente.getDenominatore() == 1)
-                builder.append("x^").append(esponente);
+            if(coeff.getNumeratore() == 1 && coeff.getDenominatore() == 1)
+                builder.append("x^").append(exp);
             else
-                builder.append(coefficiente).append("x^").append(esponente);
+                builder.append(coeff).append("x^").append(exp);
         
         return builder.toString();
     }
 
     /**
+     * Override del metodo 'compareTo' presente nell'interfaccia 'Comparable'
+     * per comparare due monomi in base al loro valore. Il monomio 'this'
+     * precede 'r' se il valore dell'esponente è più grande. Se, invece, il
+     * valore dell'esponente è più piccolo lo segue. Se i due esponenti fossero
+     * uguali si confronterebbero i coefficienti. 
      * 
      * @param m - il monomio da comparare
      * @return un valore negativo se 'this' precede 'm', positivo se lo segue, il valore zero se sono uguali
-     * 
-     * Sovrascrittura del metodo presente nell'interfaccia 'Comparable' per
-     * comparare due monomi in base al loro valore. un monomio precede un
-     * altro se il valore dell'esponente è minore dell'altro. Se, invece, il
-     * valore dell'esponente è maggiore lo segue.
+     * @throws NullPointerException se 'm' è null
      */
     @Override
     public int compareTo(Monomio m) {
-        if(this == m)
-            return 0;
-        if(m == null)
-            return 1;
+        int cmp = m.exp-exp;
+        if(cmp == 0)
+            return coeff.compareTo(m.coeff);
         
-        return m.esponente-esponente;
-    }
-
-    /**
-     * 
-     * @return il numero di monomi creati
-     * 
-     * Metodo statico che ritorna il numero complessivo dei monomi creati.
-     */
-    public static int getCount() {
-        return count;
+        return cmp;
     }
     
 }

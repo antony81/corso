@@ -16,6 +16,7 @@
  */
 package oop.thread;
 
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class Processo1 extends Thread {
         for (int i = 1; i <= 10; i++) {
             System.out.println("Processo1 lanciato " + i + " volte");
             try {
-                sleep(500);
+                TimeUnit.MILLISECONDS.sleep(500);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Processo1.class.getName()).log(Level.SEVERE, null, ex);
             }

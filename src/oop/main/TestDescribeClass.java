@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Antonio
+ * Copyright (C) 2018 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,24 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package oop.matematica;
+package oop.main;
+
+import java.util.Scanner;
+import oop.reflection.DescribeClass;
 
 /**
  *
  * @author Antonio
- * 
- * Classe che estende 'Exception' per rappresentare una eccezione personalizzata
- * (una 'Checked Exception'), la quale indica che un polinomio non può avere
- * monomi con lo stesso grado.
  */
-public class EsponenteException extends Exception {
-
-    private static final long serialVersionUID = -4484567940687144099L;
-
-    /**
-     * Metodo costruttore di default
-     */
-    public EsponenteException() {
+public class TestDescribeClass {
+    
+    public static void main(String[] args) {
+        String name;
+        if(args.length == 1)
+            name = args[0];
+        else {
+            System.out.println("Error! Enter Class name (e.g. java.lang.Double).");
+            try (Scanner scanner = new Scanner(System.in)) {
+                name = scanner.next();
+            }
+        }
+        System.out.println();
+        DescribeClass.print(name);
     }
     
 }

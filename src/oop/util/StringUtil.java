@@ -19,6 +19,7 @@ package oop.util;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import oop.matematica.Formule;
 
 /**
  *
@@ -31,7 +32,7 @@ public class StringUtil {
     
     public static List<String> permuta(String s) {
         List<String> list = new ArrayList<>();
-        generaPermutazioni(s, NumberUtil.fattoriale(BigInteger.valueOf(s.length())), list);
+        generaPermutazioni(s, Formule.fattoriale(BigInteger.valueOf(s.length())), list);
         
         return list;
     }

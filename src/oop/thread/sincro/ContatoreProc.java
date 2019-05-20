@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Antonio
+ * Copyright (C) 2019 Antonio
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,28 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package oop.thread;
-
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package oop.thread.sincro;
 
 /**
  *
  * @author Antonio
  */
-public class Processo4 implements Runnable {
+public class ContatoreProc implements Runnable {
+    
+    private final Contatore contatore;
+    private final int accessi;
+    
+    public ContatoreProc(Contatore contatore, int accessi) {
+        this.contatore = contatore;
+        this.accessi = accessi;
+    }
 
     @Override
     public void run() {
-        for (int i = 1; i <= 10; i++) {
-            System.out.println("Processo4 lanciato " + i + " volte");
-            try {
-                TimeUnit.MILLISECONDS.sleep(500);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Processo1.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        for(int i = 0; i < accessi; i++)
+            contatore.aggiorna();
     }
     
 }
