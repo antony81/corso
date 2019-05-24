@@ -17,9 +17,6 @@
 package oop.banca;
 
 /**
- *
- * @author Antonio
- * 
  * Classe che rappresenta una banca la quale conterrà conti bancari e conti
  * estesi. Per fare ciò la classe incapsula un array di oggetti di tipo
  * ContoBancario, un intero che conta il numero di conti preseti nella banca e
@@ -28,6 +25,8 @@ package oop.banca;
  * che la dimensione possa essere raddoppiata qualora fosse saturo.
  * Inoltre l'array potrà contenere sia oggetti di tipo ContoBancario, sia
  * oggetti di tipo ContoEsteso perché è un'estensione di ContoBancario.
+ *
+ * @author Antonio
  */
 public class Banca {
     
