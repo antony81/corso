@@ -55,9 +55,9 @@ public class SpeedStringConcatenation implements Runnable {
         }
         
         System.out.println();
-        System.out.println("StringPlusProc end in " + p1.getTime());
-        System.out.println("StringBuilderProc end in " + p2.getTime());
-        System.out.println("StringBufferProc end in " + p3.getTime());
+        System.out.println(String.format("StringPlusProc end in %d ms", p1.getTime()));
+        System.out.println(String.format("StringBuilderProc end in %d ms", p2.getTime()));
+        System.out.println(String.format("StringBufferProc end in %d ms", p3.getTime()));
     }
     
 }
