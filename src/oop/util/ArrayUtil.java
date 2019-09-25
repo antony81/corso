@@ -35,6 +35,7 @@ public final class ArrayUtil {
      * @param <T> - il tipo di dati per cui si vuole parametrizzare
      * @param arr - l'array (o un numero di elementi essendo un varargs) da ordinare
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Comparable<? super T>> void selectionSort(T... arr) {
         int length = arr.length;
         for(int i = 0; i < (length-1); i++) {
@@ -56,6 +57,7 @@ public final class ArrayUtil {
      * @param <T> - il tipo di dati per cui si vuole parametrizzare
      * @param arr - l'array (o un numero di elementi essendo un varargs) da ordinare
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Comparable<? super T>> void bubbleSort(T... arr) {
         int length = arr.length;
         for(int i = 0; i < length; i++) {
@@ -78,6 +80,7 @@ public final class ArrayUtil {
      * @param arr - l'array (o un numero di elementi essendo un varargs) su cui cercare
      * @return l'indice in cui è presente l'elemento che si sta cercando
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Comparable<? super T>> int binarySearch(T key, T... arr) {
         int index = -1;
         int first = 0;
