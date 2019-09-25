@@ -37,7 +37,7 @@ public class TestEnumElemento {
         EnumSet<Elemento> set = EnumSet.allOf(Elemento.class);
         out.printf("%s\t|      %s|\t     %s|\t%s%n", "SIMBOLO", "NUM. ATOMICO ", "MASSA ATOMICA ", "NOME");
         out.println("---------------------------------------------------------------------");
-        for(Elemento e : set) {
+        set.stream().forEach(e -> {
             if(e.getNumeroAtomico() < 10 && e.getMassaAtomica() < 10)
                 out.printf("%s\t|\t\t  %d |\t\t  %f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() < 10 && e.getMassaAtomica() >= 10 && e.getMassaAtomica() < 100)
@@ -50,7 +50,7 @@ public class TestEnumElemento {
                 out.printf("%s\t|\t\t %d |\t\t%f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
             if(e.getNumeroAtomico() >= 100 && e.getMassaAtomica() >= 100)
                 out.printf("%s\t|\t\t%d |\t\t%f |\t%s%n", e.getSimbolo(), e.getNumeroAtomico(), e.getMassaAtomica(), e);
-        }
+        });
         
         out.println("---------------------------------------------------------------------");
         out.println("end main");
