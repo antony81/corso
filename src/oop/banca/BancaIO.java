@@ -60,7 +60,7 @@ public class BancaIO {
             for(int i = 0; i < banca.size(); i++)
                 oos.writeObject(banca.get(i));
             
-            LOGGER.log(Level.SEVERE, "Salvataggio andato a buon fine");
+            LOGGER.log(Level.INFO, "Salvataggio andato a buon fine");
         } catch (FileNotFoundException ex) {
             esito = false;
             LOGGER.log(Level.SEVERE, "errore", ex);
@@ -93,7 +93,7 @@ public class BancaIO {
                 banca.add(bankAccount);
             }
             
-            LOGGER.log(Level.SEVERE, "Caricamento andato a buon fine");
+            LOGGER.log(Level.INFO, "Caricamento andato a buon fine");
         } catch (FileNotFoundException ex) {
             banca = null;
             LOGGER.log(Level.SEVERE, "errore", ex);
